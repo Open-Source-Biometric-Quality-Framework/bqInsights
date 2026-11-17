@@ -1,0 +1,701 @@
+.formatted-field-list {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 13px;
+  color: #1d1d1f;
+  background: #f5f5f7;
+  padding: 12px;
+}
+
+.formatted-item {
+  margin-bottom: 8px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #d2d2d7;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.item-label {
+  padding: 10px 12px;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5ea;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+.item-label:hover {
+  background: #f0f0f2;
+}
+
+.item-label-text {
+  flex: 1;
+  font-weight: 500;
+  font-size: 13px;
+  color: #1d1d1f;
+}
+
+.item-cluster-label {
+  font-weight: 500;
+  font-size: 12px;
+  color: #6e6e73;
+  white-space: nowrap;
+}
+
+.item-image {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item-image img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 1px solid #d2d2d7;
+}
+
+.item-image span {
+  font-size: 11px;
+  color: #86868b;
+}
+
+.toggle-icon-main {
+  font-size: 10px;
+  color: #86868b;
+  transition: transform 0.2s ease;
+}
+
+.toggle-icon-main.expanded {
+  transform: rotate(180deg);
+}
+
+.item-content {
+  padding: 8px 12px 12px 12px;
+}
+
+.field-group {
+  margin-bottom: 8px;
+  background: #fafafa;
+  border-radius: 4px;
+  border: 1px solid #e5e5ea;
+  overflow: hidden;
+}
+
+@media print {
+  .formatted-item {
+    break-after: page;
+  }
+}
+
+.field-group:last-child {
+  margin-bottom: 0;
+}
+
+.group-name {
+  margin: 0;
+  padding: 6px 10px;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #e5e5ea;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.15s ease;
+}
+
+.group-name:hover {
+  background: #ebebed;
+}
+
+.group-name.clickable {
+  cursor: pointer;
+}
+
+.toggle-icon {
+  font-size: 9px;
+  color: #86868b;
+  margin-left: 8px;
+}
+
+.field-list {
+  margin: 0;
+  padding: 0;
+}
+
+.field-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  padding: 6px 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f0f0f2;
+  align-items: start;
+}
+
+.field-item:last-child {
+  border-bottom: none;
+}
+
+.field-label {
+  margin: 0;
+  font-weight: 500;
+  font-size: 12px;
+  color: #6e6e73;
+  padding-top: 1px;
+}
+
+.field-info {
+  position: relative;
+  cursor: help;
+}
+
+.field-info::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  top: 16px;
+  z-index: 20;
+  min-width: 180px;
+  max-width: 260px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgba(17, 17, 19, 0.92);
+  color: #f5f5f7;
+  font-size: 11px;
+  line-height: 1.3;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+  white-space: normal;
+}
+
+.field-info:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.field-value {
+  margin: 0;
+  font-size: 12px;
+  color: #1d1d1f;
+  word-break: break-word;
+  white-space: pre-wrap;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', 'Menlo', monospace;
+  text-align: right;
+}
+
+.field-value.scalar-good {
+  background: rgba(27, 127, 58, 0.08);
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+.field-value.scalar-warn {
+  background: rgba(179, 107, 0, 0.10);
+}
+
+.field-value.scalar-bad {
+  background: rgba(176, 0, 32, 0.10);
+}
+
+/* Summary and controls styles */
+.summary-label {
+  background-color: #e8f4f8;
+  font-weight: 600;
+}
+
+.item-controls {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  background-color: #f5f5f7;
+  border-radius: 4px;
+  border: 1px solid #e5e5ea;
+}
+
+.control-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #1d1d1f;
+  font-weight: 500;
+}
+
+.controls {
+  /* 1️⃣  Make the container a flex row   */
+  display: flex;
+  align-items: center;      /* vertically centre the items */
+  gap: 2rem;                /* space between the items */
+  padding-bottom: 7pt;
+
+  /* Optional: make the whole thing wrap if space is tight */
+  flex-wrap: wrap;
+}
+
+/* If you want the button to shrink a bit on tiny screens */
+.btn-ai-summary {
+  /* Base look */
+  background: #afb4bc;          /* nice blue */
+  color: #fff;
+  border: none;
+  /*padding: 0.55rem 1rem;*/
+  border-radius: 1px;
+  font-size: 0.875rem;          /* 14 px */
+  font-weight: 600;
+  
+
+  /* Hover / focus */
+  cursor: pointer;
+  transition: background 150ms ease, transform 150ms ease;
+
+  &:hover { background: #0052cc; }
+  &:focus { outline: none; box-shadow: 0 0 0 3px rgba(0,102,255,.4); }
+
+  /* Disabled state (if you ever need it) */
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  /* Tiny screens – shrink a bit */
+  @media (max-width: 360px) {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+.control-label input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.average-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.average-image-wrapper {
+  text-align: center;
+}
+
+.average-image-caption {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #86868b;
+  font-style: italic;
+}
+
+.category-description {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background-color: #fffbf0;
+  border: 1px solid #f0e68c;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.category-title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.category-row {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.category-row:last-child {
+  margin-bottom: 0;
+}
+
+.category-label {
+  font-weight: 600;
+}
+
+.category-label.very-poor {
+  color: #d32f2f;
+}
+
+.category-label.poor {
+  color: #f57c00;
+}
+
+.category-label.average {
+  color: #ff9800;
+}
+
+.category-label.good {
+  color: #2e7d32;
+}
+
+
+@media (prefers-color-scheme: dark) {
+
+  .formatted-field-list {
+    color: #f5f5f7;
+    background: #1c1c1e;
+  }
+
+  .formatted-item {
+    background: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  .item-label {
+    background: #2c2c2e;
+    border-bottom: 1px solid #3a3a3c;
+  }
+
+  .item-label:hover {
+    background: #3a3a3c;
+  }
+
+  .item-label-text {
+    color: #f5f5f7;
+  }
+
+  .item-image span {
+    color: #9a9aa0;
+  }
+
+  .item-image img {
+    border: 1px solid #3a3a3c;
+    background: #1c1c1e;
+  }
+
+  .toggle-icon-main {
+    color: #9a9aa0;
+  }
+
+  .item-content {
+    background: #1c1c1e;
+  }
+
+  .field-group {
+    background: #2c2c2e;
+    border: 1px solid #3a3a3c;
+  }
+
+  .group-name {
+    background: #3a3a3c;
+    color: #f5f5f7;
+    border-bottom: 1px solid #48484a;
+  }
+
+  .group-name:hover {
+    background: #48484a;
+  }
+
+  .toggle-icon {
+    color: #9a9aa0;
+  }
+
+  .field-item {
+    background-color: #2c2c2e;
+    border-bottom: 1px solid #3a3a3c;
+  }
+
+  .summary-item {
+    background-color: #2c2c2e;
+    border-bottom: 1px solid #3a3a3c;
+  }
+
+  .field-label {
+    color: #9a9aa0;
+  }
+
+  .field-value {
+    color: #f5f5f7;
+  }
+
+  .field-value.scalar-good {
+    background: rgba(48, 209, 88, 0.18);
+  }
+
+  .field-value.scalar-warn {
+    background: rgba(255, 159, 10, 0.18);
+  }
+
+  .field-value.scalar-bad {
+    background: rgba(255, 69, 58, 0.18);
+  }
+
+  /* Summary and controls dark mode */
+  .summary-label {
+    background-color: #1e3a5f;
+  }
+
+  .item-controls {
+    background-color: #3a3a3c;
+    border: 1px solid #48484a;
+  }
+
+  .control-label {
+    color: #f5f5f7;
+  }
+
+  .average-image-caption {
+    color: #9a9aa0;
+  }
+
+  .category-description {
+    background-color: #2c2c2e;
+    border: 1px solid #48484a;
+    color: #f5f5f7;
+  }
+
+  .category-title {
+    color: #f5f5f7;
+  }
+
+  .category-label.very-poor {
+    color: #ff6961;
+  }
+
+  .category-label.poor {
+    color: #ff9f4a;
+  }
+
+  .category-label.average {
+    color: #ffb84d;
+  }
+
+  .category-label.good {
+    color: #5fc878;
+  }
+}
+
+.ai-response {
+  padding: 12px;
+  margin: 12px 0;
+  background-color: #f0f9ff;
+  border: 1px solid #0ea5e9;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.ai-response * {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* prose content inside ai-response */
+.ai-response .prose code,
+.ai-response code {
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.ai-response pre,
+.ai-response pre * {
+  white-space: normal !important;
+  overflow-x: visible;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .ai-response {
+    background-color: #0c4a6e;
+    border-color: #0ea5e9;
+    color: #e0f2fe;
+  }
+}
+
+/* =========================================================
+   MANUAL DARK MODE (.dark)
+   Triggered when <html> or <body> has class="dark"
+   ========================================================= */
+
+.dark .formatted-field-list {
+  color: #f5f5f7;
+  background: #1c1c1e;
+}
+
+.dark .formatted-item {
+  background: #2c2c2e;
+  border: 1px solid #3a3a3c;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.dark .item-label {
+  background: #2c2c2e;
+  border-bottom: 1px solid #3a3a3c;
+}
+
+.dark .item-label:hover {
+  background: #3a3a3c;
+}
+
+.dark .item-label-text {
+  color: #f5f5f7;
+}
+
+.dark .item-image span {
+  color: #9a9aa0;
+}
+
+.dark .item-image img {
+  border: 1px solid #3a3a3c;
+  background: #1c1c1e;
+}
+
+.dark .toggle-icon-main {
+  color: #9a9aa0;
+}
+
+.dark .item-content {
+  background: #1c1c1e;
+}
+
+.dark .field-group {
+  background: #2c2c2e;
+  border: 1px solid #3a3a3c;
+}
+
+.dark .group-name {
+  background: #3a3a3c;
+  color: #f5f5f7;
+  border-bottom: 1px solid #48484a;
+}
+
+.dark .group-name:hover {
+  background: #48484a;
+}
+
+.dark .toggle-icon {
+  color: #9a9aa0;
+}
+
+.dark .field-item {
+  background-color: #2c2c2e;
+  border-bottom: 1px solid #3a3a3c;
+}
+
+.dark .summary-item {
+  background-color: #2c2c2e;
+  border-bottom: 1px solid #3a3a3c;
+}
+
+.dark .field-label {
+  color: #9a9aa0;
+}
+
+.dark .field-value {
+  color: #f5f5f7;
+}
+
+.dark .field-value.scalar-good {
+  background: rgba(48, 209, 88, 0.18);
+}
+
+.dark .field-value.scalar-warn {
+  background: rgba(255, 159, 10, 0.18);
+}
+
+.dark .field-value.scalar-bad {
+  background: rgba(255, 69, 58, 0.18);
+}
+
+/* Summary / controls */
+
+.dark .summary-label {
+  background-color: #1e3a5f;
+}
+
+.dark .item-controls {
+  background-color: #3a3a3c;
+  border: 1px solid #48484a;
+}
+
+.dark .control-label {
+  color: #f5f5f7;
+}
+
+.dark .average-image-caption {
+  color: #9a9aa0;
+}
+
+/* Category description */
+
+.dark .category-description {
+  background-color: #2c2c2e;
+  border: 1px solid #48484a;
+  color: #f5f5f7;
+}
+
+.dark .category-title {
+  color: #f5f5f7;
+}
+
+.dark .category-label.very-poor {
+  color: #ff6961;
+}
+
+.dark .category-label.poor {
+  color: #ff9f4a;
+}
+
+.dark .category-label.average {
+  color: #ffb84d;
+}
+
+.dark .category-label.good {
+  color: #5fc878;
+}
+
+/* AI response */
+
+.dark .ai-response {
+  background-color: #0c4a6e;
+  border-color: #0ea5e9;
+  color: #e0f2fe;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.dark .ai-response * {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.dark .ai-response .prose code,
+.dark .ai-response code {
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.dark .ai-response pre,
+.dark .ai-response pre * {
+  white-space: normal !important;
+  overflow-x: visible;
+}

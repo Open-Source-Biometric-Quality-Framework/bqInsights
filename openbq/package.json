@@ -1,0 +1,29 @@
+{
+  "name": "@biometix/openbq",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "npx tsc -p tsconfig.json",
+    "dev": "npx tsc -p tsconfig.json --watch",
+    "debug:cache": "npx tsc src/debug-cache.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:cache": "vitest run bqat-cache.test.ts",
+    "test:cache:watch": "vitest bqat-cache.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.31",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.1"
+  }
+}

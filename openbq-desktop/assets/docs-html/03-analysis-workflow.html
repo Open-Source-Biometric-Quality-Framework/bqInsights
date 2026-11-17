@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Analysis Workflow</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --link: #0b63ce;
+      --border: #e5e7eb;
+      --tip: #e8f4ff;
+      --note: #f3f4f6;
+      --warn: #fff4e5;
+      --important: #fdecec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top right, #eef5ff, var(--bg));
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 250px;
+      min-height: 100vh;
+    }
+    .sidebar {
+      border-right: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .sidebar h1 {
+      font-size: 1rem;
+      margin: 0 0 1rem 0;
+      color: #111827;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .brand .label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .brand .sub {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 0.05rem;
+      font-weight: 500;
+    }
+    .sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 0.5rem 0.625rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .sidebar a:hover { background: #f3f4f6; }
+    .sidebar a.active {
+      background: #e8f0ff;
+      color: #0b3d91;
+      font-weight: 600;
+    }
+    .sidebar-support {
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-support a {
+      display: block;
+      text-decoration: none;
+      color: var(--link);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.45rem 0.5rem;
+      border-radius: 0.45rem;
+    }
+    .sidebar-support a:hover {
+      background: #eef4ff;
+    }
+    .content {
+      padding: 2rem 2.5rem;
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .toc {
+      border-left: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .toc h2 {
+      font-size: 0.95rem;
+      margin: 0 0 0.8rem 0;
+      color: #111827;
+    }
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.35;
+      padding: 0.3rem 0.35rem;
+      border-radius: 0.4rem;
+    }
+    .toc a:hover {
+      background: #f3f4f6;
+      color: #111827;
+    }
+    article {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 6px 28px rgba(13, 34, 71, 0.06);
+    }
+    .page-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-head img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .page-head .meta {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .page-head .meta strong {
+      font-size: 0.95rem;
+      color: #111827;
+    }
+    .page-head .meta span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .support-link {
+      margin-top: 0.5rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .support-link a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .support-link a:hover {
+      text-decoration: underline;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    p, li { line-height: 1.65; }
+    a { color: var(--link); }
+    code {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 0.1rem 0.3rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      overflow-x: auto;
+    }
+    pre code {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      color: inherit;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .admonition {
+      border: 1px solid var(--border);
+      border-left-width: 6px;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+    }
+    .admonition-title {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .admonition.tip { background: var(--tip); border-left-color: #3b82f6; }
+    .admonition.note { background: var(--note); border-left-color: #6b7280; }
+    .admonition.warning { background: var(--warn); border-left-color: #f59e0b; }
+    .admonition.important { background: var(--important); border-left-color: #ef4444; }
+    .mermaid {
+      background: #fbfcff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .toc {
+        display: none;
+      }
+      .content { padding: 1rem; }
+      article { padding: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+        <div>
+          <div class="label">OpenBQ Desktop</div>
+          <span class="sub">User Documentation</span>
+        </div>
+      </div>
+      <ul>
+        <li><a class="" href="README.html">OpenBQ Desktop User Manual</a></li><li><a class="" href="01-setup-and-first-run.html">Setup and First Run</a></li><li><a class="" href="02-interface-tour-and-data-loading.html">Interface Tour and Data Loading</a></li><li><a class="active" href="03-analysis-workflow.html">Analysis Workflow</a></li><li><a class="" href="04-ai-assistance.html">Using AI Assistance</a></li><li><a class="" href="05-advanced-customization.html">Advanced Customization</a></li>
+      </ul>
+      <div class="sidebar-support">
+        <a href="mailto:support@openbq.io?subject=Tutorial%20Feedback%3A%20OpenBQ%20Desktop%20User%20Tutorial&body=Hi%20OpenBQ%20team%2C%0A%0AI%20am%20sharing%20feedback%20on%20the%20OpenBQ%20Desktop%20User%20Tutorial.%0A%0AWhat%20worked%20well%3A%0A-%20%0A%0AWhat%20was%20unclear%20or%20missing%3A%0A-%20%0A%0ASuggestions%20to%20improve%20the%20tutorial%3A%0A-%20%0A%0AThanks.">OpenBQ Support &lt;support@openbq.io&gt;</a>
+      </div>
+    </aside>
+    <main class="content">
+      <article>
+        <div class="page-head">
+          <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+          <div class="meta">
+            <strong>OpenBQ Desktop</strong>
+            <span>User Documentation</span>
+            <div class="support-link">
+              <a href="mailto:support@openbq.io">OpenBQ Support &lt;support@openbq.io&gt;</a>
+            </div>
+          </div>
+        </div>
+        <h1 id="analysis-workflow">Analysis Workflow</h1>
+<p>This section explains how to interpret UMAP and clustering outputs in practical terms and how to turn those outputs into evidence-based decisions.</p>
+<p>The goal is not just to &ldquo;get clusters.&rdquo; The goal is to identify reliable patterns, understand outliers, and connect findings to quality improvement actions your team can actually take.</p>
+<p>This chapter is written to help you move from a broad visual overview into specific sample-level diagnostics without losing context along the way.</p>
+<aside class="admonition tip"><div class="admonition-title">Tip</div><p><strong>Things to Think About</strong></p>
+<ul>
+<li>What makes a pattern meaningful in your operational context?</li>
+<li>Could an apparent cluster be caused by metadata or preprocessing artifacts?</li>
+<li>What evidence would you need before recommending process changes?</li>
+</ul></aside>
+
+<h2 id="scenario-examples">Scenario Examples</h2>
+<h3 id="scenario-a-spike-in-verification-failures">Scenario A: Spike in verification failures</h3>
+<p>Your team reports increased verification failures over the last week.<br />
+Use UMAP + clustering to check whether a new low-quality subgroup has emerged (for example lighting, capture angle, or device-specific behavior).</p>
+<h3 id="scenario-b-quality-audit-before-rollout">Scenario B: Quality audit before rollout</h3>
+<p>A new enrollment workflow is about to launch.<br />
+Use OpenBQ Desktop to compare quality structure and outlier rates before rollout so risks are identified early.</p>
+<h3 id="scenario-c-investigating-outliers">Scenario C: Investigating outliers</h3>
+<p>You notice a small outlier group in the embedding.<br />
+Drill into Detail Panel records and confirm whether outliers are true quality issues or data/mapping artifacts.</p>
+<div class="mermaid">flowchart TD
+  A["Load dataset"] --> B["View UMAP structure"]
+  B --> C["Check clusters + outliers"]
+  C --> D["Select group or individual"]
+  D --> E["Inspect quality attributes"]
+  E --> F{"Evidence strong?"}
+  F -->|No| G["Adjust settings and re-run"]
+  F -->|Yes| H["Document findings + actions"]
+  G --> B</div>
+<h2 id="what-umap-is-in-plain-language">What UMAP Is (in plain language)</h2>
+<p>UMAP takes many quality attributes per sample and maps them into 2D so similar records appear closer together.</p>
+<p>Important reminder:</p>
+<ul>
+<li>UMAP axes are not direct quality scores.</li>
+<li>Distances/patterns are what matter most.</li>
+</ul>
+<p>Use UMAP to answer:</p>
+<ul>
+<li>Are there natural groups in this dataset?</li>
+<li>Are there unusual outliers?</li>
+<li>Does the data look consistent or fragmented?</li>
+</ul>
+<h2 id="what-a-good-umap-usually-looks-like">What a “good” UMAP usually looks like</h2>
+<p>Healthy signals:</p>
+<ul>
+<li>Clear but not forced structure.</li>
+<li>Cohesive groups with understandable differences.</li>
+<li>Outliers that are limited and explainable.</li>
+</ul>
+<p>Caution signals:</p>
+<ul>
+<li>One chaotic cloud with no separable structure.</li>
+<li>Too many tiny fragments (possible over-tuning).</li>
+<li>Patterns driven by non-quality fields rather than actual quality behavior.</li>
+</ul>
+<h2 id="understanding-clustering">Understanding Clustering</h2>
+<p>Clustering helps turn visual groupings into measurable segments.</p>
+<p>OpenBQ Desktop provides multiple clustering approaches:</p>
+<ul>
+<li><strong>UMAP HDBSCAN</strong>: robust density clustering over 2D embedding.</li>
+<li><strong>UMAP JS DBSCAN</strong>: fallback/alternative DBSCAN behavior.</li>
+<li><strong>PCA HDBSCAN</strong>: cluster in reduced high-dimensional space before/without relying only on 2D view.</li>
+<li><strong>Supercluster</strong>: spatial grouping behavior useful for certain visualization-focused workflows.</li>
+</ul>
+<p>Practical approach:</p>
+<ol>
+<li>Start with defaults.</li>
+<li>Inspect cluster summary and outlier rates.</li>
+<li>Adjust settings only if the current segmentation is not useful.</li>
+<li>Re-compare against domain expectations.</li>
+</ol>
+<h2 id="cluster-settings-what-they-do">Cluster Settings: What They Do</h2>
+<ul>
+<li>
+<p><strong>Cluster Sensitivity</strong>:
+  Fine = more clusters, Coarse = fewer clusters.</p>
+</li>
+<li>
+<p><strong>Min Points / Min Samples</strong>:
+  Controls how much local evidence is needed to form a cluster.</p>
+</li>
+<li>
+<p><strong>UMAP Neighbors / Min Dist</strong>:
+  Changes local/global balance and compactness of embedding.</p>
+</li>
+<li>
+<p><strong>Exclude Non Scalar / One-hot Encode / Exclude Low Variance</strong>:
+  Controls how fields are prepared for analysis and can strongly affect clustering quality.</p>
+</li>
+</ul>
+<p>Rule of thumb:</p>
+<ul>
+<li>Change one setting family at a time and re-check outcomes.</li>
+</ul>
+<h2 id="selecting-an-individual-and-reviewing-quality-attributes">Selecting an Individual and Reviewing Quality Attributes</h2>
+<p><img src="umap_detail_view.png" width="800"></p>
+<ol>
+<li>Click a point in the Main Panel (or make a focused selection).</li>
+<li>In Detail Panel, inspect the selected record’s quality fields.</li>
+<li>Review associated histograms and formatted attributes.</li>
+<li>Use <strong>AI Summary</strong> for a plain-language interpretation if needed.</li>
+</ol>
+<p>Why this matters:</p>
+<ul>
+<li>Group patterns are useful, but remediation happens at sample/process level.</li>
+</ul>
+<h2 id="selecting-a-group-and-reviewing-group-information">Selecting a Group and Reviewing Group Information</h2>
+<ol>
+<li>Select a region/cluster in Main Panel.</li>
+<li>In Detail Panel, review cluster-level counts and differences.</li>
+<li>Check outlier count and proportion.</li>
+<li>Use <strong>AI Summary</strong> for a concise group narrative.</li>
+</ol>
+<p>Why this matters:</p>
+<ul>
+<li>Group-level diagnostics help identify systemic issues (capture environment, process drift, modality-specific behavior).</li>
+</ul>
+<h2 id="practical-validation-checklist">Practical Validation Checklist</h2>
+<p>Before finalizing conclusions, verify:</p>
+<ul>
+<li>Cluster differences are meaningful in real quality fields.</li>
+<li>Outliers are not just parsing or metadata artifacts.</li>
+<li>Re-running with nearby settings does not completely invalidate conclusions.</li>
+<li>Findings align with operational context (sensor, workflow, environment).</li>
+</ul>
+      </article>
+    </main>
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul>
+        <li><a href="#scenario-examples">Scenario Examples</a></li><li><a href="#what-umap-is-in-plain-language">What UMAP Is (in plain language)</a></li><li><a href="#what-a-good-umap-usually-looks-like">What a “good” UMAP usually looks like</a></li><li><a href="#understanding-clustering">Understanding Clustering</a></li><li><a href="#cluster-settings-what-they-do">Cluster Settings: What They Do</a></li><li><a href="#selecting-an-individual-and-reviewing-quality-attributes">Selecting an Individual and Reviewing Quality Attributes</a></li><li><a href="#selecting-a-group-and-reviewing-group-information">Selecting a Group and Reviewing Group Information</a></li><li><a href="#practical-validation-checklist">Practical Validation Checklist</a></li>
+      </ul>
+    </aside>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      window.mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        securityLevel: "loose",
+        flowchart: { useMaxWidth: true }
+      });
+    }
+  </script>
+</body>
+</html>

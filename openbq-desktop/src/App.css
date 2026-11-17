@@ -1,0 +1,161 @@
+#root {
+  min-height: 100vh;
+}
+
+.embedding-atlas-tooltip {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 9999 !important;
+}
+
+.slide-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 60px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.slide-title {
+    text-align: center;
+    color: #333;
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+.slide-content {
+    padding: 10px 0;
+    color: #555;
+}
+
+.slide-content ul {
+    margin: 10px 0;
+}
+
+.noteview {
+  /*max-width: 72ch;*/
+  line-height: 1.65;
+  font-size: 0.7rem;
+
+  /* Theme tokens (light defaults) */
+  --nv-text: #1f2937;     /* gray-800 */
+  --nv-heading: #111827;  /* gray-900 */
+  --nv-strong: #111827;   /* gray-900 */
+  --nv-muted: #6b7280;    /* gray-500 */
+  --nv-link: #2563eb;     /* blue-600 */
+  --nv-link-hover: #1d4ed8; /* blue-700 */
+
+  color: var(--nv-text);
+}
+
+/* Dark mode via class on html/body/container */
+.dark .noteview,
+[data-theme="dark"] .noteview {
+  --nv-text: #e5e7eb;       /* gray-200 */
+  --nv-heading: #f9fafb;    /* gray-50 */
+  --nv-strong: #f9fafb;     /* gray-50 */
+  --nv-muted: #9ca3af;      /* gray-400 */
+  --nv-link: #60a5fa;       /* blue-400 */
+  --nv-link-hover: #93c5fd; /* blue-300 */
+}
+
+/* Dark mode fallback for users without a .dark class */
+@media (prefers-color-scheme: dark) {
+  .noteview {
+    --nv-text: #e5e7eb;
+    --nv-heading: #f9fafb;
+    --nv-strong: #f9fafb;
+    --nv-muted: #9ca3af;
+    --nv-link: #60a5fa;
+    --nv-link-hover: #93c5fd;
+  }
+}
+
+/* Headings */
+.noteview h2 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--nv-heading);
+}
+
+/* Paragraph spacing */
+.noteview p {
+  margin-bottom: 1.25rem;
+}
+
+/* Lists */
+.noteview ul {
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+/* List items */
+.noteview li {
+  margin-bottom: 0.75rem;
+  padding-left: 0.25rem;
+}
+
+/* Emphasis inside lists */
+.noteview li strong,
+.noteview strong {
+  color: var(--nv-strong);
+  font-weight: 600;
+}
+
+/* Links (optional but usually needed in notes) */
+.noteview a {
+  color: var(--nv-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.noteview a:hover {
+  color: var(--nv-link-hover);
+}
+
+/* Optional: subtle visual separation for sections */
+.noteview h2 + p,
+.noteview h2 + ul {
+  margin-top: 0.5rem;
+}
+
+.noteview {
+  /* max-width: 72ch;*/
+  line-height: 1.65;
+  font-size: 0.95rem;
+
+  /* wrapping fixes */
+  white-space: normal;
+  overflow-wrap: anywhere;  /* breaks long URLs/strings */
+  word-break: break-word;   /* fallback */
+}
+
+.noteview p,
+.noteview li,
+.noteview a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* If you're rendering code blocks */
+.noteview pre,
+.noteview code {
+  white-space: pre-wrap;    /* wrap code instead of scrolling */
+  overflow-wrap: anywhere;
+}
+
+.noteview,
+.noteview h2,
+.noteview p,
+.noteview ul,
+.noteview li {
+  font-family: Arial, "Helvetica Neue", Helvetica, system-ui, -apple-system, sans-serif;
+}

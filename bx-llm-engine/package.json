@@ -1,0 +1,21 @@
+{
+  "name": "@biometix/bx-llm-engine",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@turf/clusters-dbscan": "^7.3.1",
+    "openai": "^6.16.0"
+  }
+}

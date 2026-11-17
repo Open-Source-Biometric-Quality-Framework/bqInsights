@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenBQ Desktop User Manual</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --link: #0b63ce;
+      --border: #e5e7eb;
+      --tip: #e8f4ff;
+      --note: #f3f4f6;
+      --warn: #fff4e5;
+      --important: #fdecec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top right, #eef5ff, var(--bg));
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 250px;
+      min-height: 100vh;
+    }
+    .sidebar {
+      border-right: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .sidebar h1 {
+      font-size: 1rem;
+      margin: 0 0 1rem 0;
+      color: #111827;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .brand .label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .brand .sub {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 0.05rem;
+      font-weight: 500;
+    }
+    .sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 0.5rem 0.625rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .sidebar a:hover { background: #f3f4f6; }
+    .sidebar a.active {
+      background: #e8f0ff;
+      color: #0b3d91;
+      font-weight: 600;
+    }
+    .sidebar-support {
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-support a {
+      display: block;
+      text-decoration: none;
+      color: var(--link);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.45rem 0.5rem;
+      border-radius: 0.45rem;
+    }
+    .sidebar-support a:hover {
+      background: #eef4ff;
+    }
+    .content {
+      padding: 2rem 2.5rem;
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .toc {
+      border-left: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .toc h2 {
+      font-size: 0.95rem;
+      margin: 0 0 0.8rem 0;
+      color: #111827;
+    }
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.35;
+      padding: 0.3rem 0.35rem;
+      border-radius: 0.4rem;
+    }
+    .toc a:hover {
+      background: #f3f4f6;
+      color: #111827;
+    }
+    article {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 6px 28px rgba(13, 34, 71, 0.06);
+    }
+    .page-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-head img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .page-head .meta {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .page-head .meta strong {
+      font-size: 0.95rem;
+      color: #111827;
+    }
+    .page-head .meta span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .support-link {
+      margin-top: 0.5rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .support-link a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .support-link a:hover {
+      text-decoration: underline;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    p, li { line-height: 1.65; }
+    a { color: var(--link); }
+    code {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 0.1rem 0.3rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      overflow-x: auto;
+    }
+    pre code {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      color: inherit;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .admonition {
+      border: 1px solid var(--border);
+      border-left-width: 6px;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+    }
+    .admonition-title {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .admonition.tip { background: var(--tip); border-left-color: #3b82f6; }
+    .admonition.note { background: var(--note); border-left-color: #6b7280; }
+    .admonition.warning { background: var(--warn); border-left-color: #f59e0b; }
+    .admonition.important { background: var(--important); border-left-color: #ef4444; }
+    .mermaid {
+      background: #fbfcff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .toc {
+        display: none;
+      }
+      .content { padding: 1rem; }
+      article { padding: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+        <div>
+          <div class="label">OpenBQ Desktop</div>
+          <span class="sub">User Documentation</span>
+        </div>
+      </div>
+      <ul>
+        <li><a class="active" href="README.html">OpenBQ Desktop User Manual</a></li><li><a class="" href="01-setup-and-first-run.html">Setup and First Run</a></li><li><a class="" href="02-interface-tour-and-data-loading.html">Interface Tour and Data Loading</a></li><li><a class="" href="03-analysis-workflow.html">Analysis Workflow</a></li><li><a class="" href="04-ai-assistance.html">Using AI Assistance</a></li><li><a class="" href="05-advanced-customization.html">Advanced Customization</a></li>
+      </ul>
+      <div class="sidebar-support">
+        <a href="mailto:support@openbq.io?subject=Tutorial%20Feedback%3A%20OpenBQ%20Desktop%20User%20Tutorial&body=Hi%20OpenBQ%20team%2C%0A%0AI%20am%20sharing%20feedback%20on%20the%20OpenBQ%20Desktop%20User%20Tutorial.%0A%0AWhat%20worked%20well%3A%0A-%20%0A%0AWhat%20was%20unclear%20or%20missing%3A%0A-%20%0A%0ASuggestions%20to%20improve%20the%20tutorial%3A%0A-%20%0A%0AThanks.">OpenBQ Support &lt;support@openbq.io&gt;</a>
+      </div>
+    </aside>
+    <main class="content">
+      <article>
+        <div class="page-head">
+          <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+          <div class="meta">
+            <strong>OpenBQ Desktop</strong>
+            <span>User Documentation</span>
+            <div class="support-link">
+              <a href="mailto:support@openbq.io">OpenBQ Support &lt;support@openbq.io&gt;</a>
+            </div>
+          </div>
+        </div>
+        <h1 id="openbq-desktop-user-manual">OpenBQ Desktop User Manual</h1>
+<p>Welcome to the OpenBQ Desktop user manual. This guide is designed for non-expert users who want to perform meaningful biometric quality analysis without needing a deep data science background.</p>
+<p>OpenBQ Desktop can feel technical at first because it combines data loading, visual exploration, clustering, and AI-assisted interpretation in one workspace. This manual breaks those topics into practical steps you can follow in order.</p>
+<p>As you work through these guides, focus on understanding the purpose behind each feature, not just which button to press. The strongest results come when you connect tool behavior to your operational goals.</p>
+<p>This documentation is for <strong>OpenBQ Desktop</strong> (the application). The lower-case <strong>openbq</strong> project is the underlying biometric quality assessment framework used by the desktop app.</p>
+<aside class="admonition tip"><div class="admonition-title">Tip</div><p><strong>Things to Think About</strong></p>
+<ul>
+<li>What business or operational decision should this analysis support?</li>
+<li>What would a &ldquo;useful&rdquo; finding look like for your team?</li>
+<li>How will you validate AI-generated suggestions before acting on them?</li>
+</ul></aside>
+
+<h2 id="scenario-examples">Scenario Examples</h2>
+<h3 id="scenario-a-new-analyst-onboarding">Scenario A: New analyst onboarding</h3>
+<p>A new analyst has never used OpenBQ Desktop before and needs to run a first quality review safely.<br />
+They should follow the manual in order, starting with setup, then interface/data loading, then analysis.</p>
+<h3 id="scenario-b-team-handover">Scenario B: Team handover</h3>
+<p>An analyst is leaving for two weeks and needs someone else to continue the work.<br />
+Using this manual plus exported analysis bundles helps the next person reproduce the workflow quickly.</p>
+<div class="mermaid">flowchart LR
+  A["Start Here"] --> B["Setup"]
+  B --> C["Load Data"]
+  C --> D["Run Analysis"]
+  D --> E["Use AI Carefully"]
+  E --> F["Tune Advanced Settings (Optional)"]</div>
+<h2 id="how-to-use-this-manual">How to Use This Manual</h2>
+<p>If you are new to OpenBQ Desktop, follow this order:</p>
+<ol>
+<li><a href="01-setup-and-first-run.html">Setup and First Run</a></li>
+<li><a href="02-interface-tour-and-data-loading.html">Interface Tour and Data Loading</a></li>
+<li><a href="03-analysis-workflow.html">Analysis Workflow</a></li>
+<li><a href="04-ai-assistance.html">Using AI Assistance</a></li>
+<li><a href="05-advanced-customization.html">Advanced Customization</a></li>
+</ol>
+<h2 id="what-openbq-desktop-helps-you-do">What OpenBQ Desktop Helps You Do</h2>
+<p>OpenBQ Desktop helps you:</p>
+<ul>
+<li>Load biometric quality datasets from folders, CSV/XLSX files, or analysis archives.</li>
+<li>Visualize data structure using UMAP (a 2D map of complex data relationships).</li>
+<li>Detect clusters and outliers that may indicate quality patterns or operational issues.</li>
+<li>Drill down from group-level patterns to individual sample details.</li>
+<li>Use AI tools to summarize findings and produce plain-language explanations.</li>
+</ul>
+<h2 id="important-notes">Important Notes</h2>
+<ul>
+<li>OpenBQ Desktop uses local processing workflows and depends on Docker for key analysis functions.</li>
+<li>AI-assisted features depend on an AI backend (Ollama/OpenAI/Claude/Apple, depending on your setup).</li>
+<li>First-time startup can take longer while models/containers are prepared.</li>
+</ul>
+      </article>
+    </main>
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul>
+        <li><a href="#scenario-examples">Scenario Examples</a></li><li><a href="#how-to-use-this-manual">How to Use This Manual</a></li><li><a href="#what-openbq-desktop-helps-you-do">What OpenBQ Desktop Helps You Do</a></li><li><a href="#important-notes">Important Notes</a></li>
+      </ul>
+    </aside>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      window.mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        securityLevel: "loose",
+        flowchart: { useMaxWidth: true }
+      });
+    }
+  </script>
+</body>
+</html>
