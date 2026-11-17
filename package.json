@@ -1,0 +1,38 @@
+{
+  "name": "openbq-desktop-workspace",
+  "version": "0.1.11",
+  "private": true,
+  "description": "Minimal workspace for OpenBQ Desktop",
+  "workspaces": [
+    "openbq-desktop",
+    "openbq",
+    "electron-main-common",
+    "bx-report",
+    "bx-llm-engine",
+    "bx-llm-proc"
+  ],
+  "scripts": {
+    "clean": "rimraf node_modules **/node_modules openbq-desktop/dist openbq-desktop/electron-dist openbq/dist electron-main-common/dist bx-report/dist bx-llm-engine/dist bx-llm-proc/dist",
+    "reinstall": "$npm_execpath run clean && $npm_execpath install",
+    "build:shared": "$npm_execpath run --filter=@biometix/electron-main-common build && $npm_execpath run --filter=@biometix/openbq build && $npm_execpath run --filter=@biometix/bx-report build && $npm_execpath run --filter=@biometix/bx-llm-engine build",
+    "dev:openbq": "$npm_execpath run --filter=openbq-desktop electron:dev",
+    "build:openbq": "$npm_execpath run build:shared && $npm_execpath run --filter=openbq-desktop electron:build",
+    "dist:openbq:osx": "$npm_execpath run build:openbq && $npm_execpath run --filter=openbq-desktop dist:osx",
+    "dist:openbq:unsigned": "$npm_execpath run build:openbq && $npm_execpath run --filter=openbq-desktop dist:unsigned",
+    "dist:openbq:linux": "$npm_execpath run build:openbq && $npm_execpath run --filter=openbq-desktop dist:linux",
+    "dist:openbq:win": "$npm_execpath run build:openbq && $npm_execpath run --filter=openbq-desktop dist:win"
+  },
+  "devDependencies": {
+    "electron": "45.3.3",
+    "electron-builder": "^26.18.1",
+    "rimraf": "5.0.10",
+    "tar": "^7.5.7",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@electron/rebuild>tar": "^7.5.7",
+    "rimraf": "5.0.10"
+  }
+}

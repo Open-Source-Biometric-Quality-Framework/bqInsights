@@ -1,0 +1,170 @@
+stages:
+  - test
+  - secret-detection
+  - build
+  - upload
+  - release
+
+# ──────────────── Initialisation & Cache ────────────────
+
+variables:
+  BUN_VERSION: "1.4.4"
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
+cache:
+  key:
+    files:
+      - bun.lock
+  paths:
+    - .bun-cache/
+    - node_modules/
+
+.build_template:
+  stage: build
+  image: oven/bun:${BUN_VERSION}
+  variables:
+    BUN_INSTALL_CACHE_DIR: "$CI_PROJECT_DIR/.bun-cache"
+  artifacts:
+    expire_in: 30d
+
+sast:
+  stage: test
+
+secret_detection:
+  stage: secret-detection
+
+# ──────────────── Build Jobs ────────────────
+
+build-linux:
+  extends: .build_template
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      # when: manual
+      # allow_failure: true
+  before_script:
+    - apt-get update && apt-get install -y python3 build-essential
+    - bun install --frozen-lockfile
+  script:
+    - bun run build:openbq
+    - bun --filter=openbq-desktop run dist:linux
+  artifacts:
+    paths:
+      - openbq-desktop/release/*.deb
+
+build-windows:
+  extends: .build_template
+  rules:
+    - if: '$CI_COMMIT_TAG'
+  before_script:
+    - dpkg --add-architecture i386 && apt-get update && apt-get install -y wine64 libwine:i386 python3 build-essential
+    - bun install --frozen-lockfile
+  script:
+    - bun run build:openbq
+    - bun --filter=openbq-desktop run dist:win
+  artifacts:
+    paths:
+      - openbq-desktop/release/*.exe
+
+# build-macos:
+#   extends: .build_template
+#   image: null  # Uses your custom macOS runner environment
+#   tags:
+#     - macos
+#   rules:
+#     - if: '$CI_COMMIT_TAG'
+#       when: manual
+#       allow_failure: true
+#   before_script:
+#     # Assumes bun is installed globally on your macOS runner
+#     - bun install --frozen-lockfile
+#   script:
+#     - bun run build:openbq
+#     - bun --filter openbq-desktop run dist:unsigned
+#   artifacts:
+#     paths:
+#       - openbq-desktop/release/*.dmg
+
+# ──────────────── Upload Jobs ────────────────
+
+upload-linux:
+  stage: upload
+  image: curlimages/curl:latest # Swapped node image for light curl image since node isn't needed here
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      allow_failure: true
+  needs:
+    - job: build-linux
+      optional: true
+  script:
+    - |
+      FILENAME=$(find openbq-desktop/release/ -maxdepth 1 -name "*.deb" -type f | head -1)
+      if [ -z "$FILENAME" ]; then echo "Linux build skipped or no package found." && exit 0; fi
+      curl --fail --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
+        --upload-file "$FILENAME" \
+        "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/openbq-desktop/${CI_COMMIT_TAG}/$(basename "$FILENAME")"
+
+upload-windows:
+  stage: upload
+  image: curlimages/curl:latest
+  rules:
+    - if: '$CI_COMMIT_TAG'
+  needs:
+    - build-windows
+  script:
+    - |
+      FILENAME=$(find openbq-desktop/release/ -maxdepth 1 -name "*.exe" -type f | head -1)
+      if [ -z "$FILENAME" ]; then echo "ERROR: No .exe found!" && exit 1; fi
+      curl --fail --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
+        --upload-file "$FILENAME" \
+        "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/openbq-desktop/${CI_COMMIT_TAG}/$(basename "$FILENAME")"
+
+# upload-macos:
+#   stage: upload
+#   image: curlimages/curl:latest
+#   rules:
+#     - if: '$CI_COMMIT_TAG'
+#       allow_failure: true
+#   needs:
+#     - job: build-macos
+#       optional: true
+#   script:
+#     - |
+#       FILENAME=$(find openbq-desktop/release/ -maxdepth 1 -name "*.dmg" -type f | head -1)
+#       if [ -z "$FILENAME" ]; then echo "macOS build skipped or no package found." && exit 0; fi
+#       SAFE_NAME="OpenBQ-${CI_COMMIT_TAG}-mac.dmg"
+#       cp "$FILENAME" "openbq-desktop/release/${SAFE_NAME}"
+#       
+#       curl --fail --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
+#         --upload-file "openbq-desktop/release/${SAFE_NAME}" \
+#         "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/openbq-desktop/${CI_COMMIT_TAG}/${SAFE_NAME}"
+
+# ──────────────── Create GitLab Release ────────────────
+
+create-release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: '$CI_COMMIT_TAG'
+  needs:
+    - job: upload-windows
+    - job: upload-linux
+    # - job: upload-macos
+    #   optional: true
+  script:
+    - echo "Generating native GitLab release for ${CI_COMMIT_TAG}"
+  release:
+    name: 'OpenBQ Desktop v${CI_COMMIT_TAG}'
+    description: 'OpenBQ Desktop release ${CI_COMMIT_TAG}'
+    tag_name: '${CI_COMMIT_TAG}'
+    ref: '${CI_COMMIT_TAG}'
+    assets:
+      links:
+        - name: 'OpenBQ-${CI_COMMIT_TAG}-win.exe'
+          url: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/openbq-desktop/${CI_COMMIT_TAG}/OpenBQ-${CI_COMMIT_TAG}-win.exe'
+        - name: 'OpenBQ-${CI_COMMIT_TAG}-linux.deb'
+          url: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/openbq-desktop/${CI_COMMIT_TAG}/OpenBQ-${CI_COMMIT_TAG}-linux.deb'
+        # - name: 'OpenBQ-${CI_COMMIT_TAG}-mac.dmg'
+        #   url: '${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/openbq-desktop/${CI_COMMIT_TAG}/OpenBQ-${CI_COMMIT_TAG}-mac.dmg'

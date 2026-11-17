@@ -1,0 +1,607 @@
+profile_id: "66059698"
+fields:
+  file:
+    label: file
+    priority: 0
+    group: Image Metadata
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: true
+    description: ""
+  unified_quality_score_native:
+    label: Native Quality
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the overall quality score of the biometric data.
+  background_uniformity_native:
+    label: Background Uniformity
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the uniformity of the background in the biometric image.
+  illumination_uniformity_native:
+    label: Illumination Uniformity
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the uniformity of illumination in the image.
+  luminance_mean_native:
+    label: Native Luminance Mean
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the average luminance value of the image in its native
+      color space.
+  luminance_variance_native:
+    label: Luminance Variance
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Measures the variation in luminance across the image.
+  under_exposure_prevention_native:
+    label: Under Exposure
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates the degree of under-exposure detected in the biometric image.
+  over_exposure_prevention_native:
+    label: No Overexposure
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates the absence of overexposure issues in the biometric image.
+  dynamic_range_native:
+    label: Dynamic Range
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the dynamic range of the native signal.
+  sharpness_native:
+    label: Sharpness
+    priority: 2
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the native sharpness of the biometric image.
+  compression_artifacts_native:
+    label: Compression Artifacts
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the level of compression artifacts present in the
+      biometric image.
+  natural_colour_native:
+    label: Native Color
+    priority: 1
+    group: Visual Characteristics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates the presence of natural color in the image.
+  single_face_present_native:
+    label: Single Face Present
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates whether a single face is present in the image.
+  eyes_open_native:
+    label: Eyes Open (Native)
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the proportion of frames where the subject's eyes are open.
+  mouth_closed_native:
+    label: Mouth Closed
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the duration or measurement of the mouth being closed
+      during the recording.
+  eyes_visible_native:
+    label: Visible Eyes
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates the proportion of visible eyes in the image.
+  mouth_occlusion_prevention_native:
+    label: Mouth Occlusion
+    priority: 1
+    group: Visual Characteristics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates the presence or absence of mouth occlusion.
+  face_occlusion_prevention_native:
+    label: Face Occlusion
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the level of occlusion detected in the face image.
+  inter_eye_distance_native:
+    label: InterEyeDistance
+    priority: 2
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Measures the distance between the subject's eyes in millimeters.
+  head_size_native:
+    label: Head Size
+    priority: 1
+    group: Visual Characteristics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the size of the subject's head in a normalized scale.
+  leftward_crop_of_the_face_image_native:
+    label: Leftward Crop Distance
+    priority: 3
+    group: Crop & Positioning Data
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: The distance of the left edge of the face image after cropping.
+  rightward_crop_of_the_face_image_native:
+    label: Rightward Crop Distance
+    priority: 3
+    group: Crop & Positioning Data
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: The distance from the right edge of the face to the cropped image boundary.
+  margin_above_of_the_face_image_native:
+    label: Face Margin Above
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the distance between the top edge of the face and the
+      top edge of the image.
+  margin_below_of_the_face_image_native:
+    label: Face Margin Below
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Distance from the bottom edge of the face image to the nearest
+      detected facial feature.
+  head_pose_yaw_native:
+    label: Head Yaw
+    priority: 3
+    group: Pose & Head Attributes
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the horizontal head rotation angle in degrees.
+  head_pose_pitch_native:
+    label: Head Pitch Native
+    priority: 1
+    group: Pose & Head Attributes
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the head's pitch angle in degrees, measured relative to
+      the native coordinate system.
+  head_pose_roll_native:
+    label: Head Roll (Native)
+    priority: 3
+    group: Pose & Head Attributes
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the rotational angle of the head around the vertical
+      axis in degrees.
+  expression_neutrality_native:
+    label: Neutral Expression Native
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the degree of a neutral expression in the native state
+      of the subject.
+  no_head_coverings_native:
+    label: No Head Coverings
+    priority: 1
+    group: Visual Characteristics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates whether the subject is wearing any head coverings.
+  unified_quality_score_scalar:
+    label: Quality Score
+    priority: 3
+    group: Quality Metrics
+    is_score: true
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents a numerical quality assessment of the biometric data.
+  background_uniformity_scalar:
+    label: Background Uniformity
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the degree of uniformity in the background of the
+      biometric image.
+  illumination_uniformity_scalar:
+    label: Illumination Uniformity
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the degree of evenness of illumination in the image.
+  luminance_mean_scalar:
+    label: Luminance Mean
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Average luminance value of the image.
+  luminance_variance_scalar:
+    label: Luminance Variance
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the variance of luminance values within the image.
+  under_exposure_prevention_scalar:
+    label: Under Exposure
+    priority: 2
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents a scalar value indicating the degree of under-exposure
+      prevention applied.
+  over_exposure_prevention_scalar:
+    label: Over Exposure
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates the level of overexposure prevention applied.
+  dynamic_range_scalar:
+    label: Dynamic Range
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the dynamic range of the biometric data.
+  sharpness_scalar:
+    label: Sharpness
+    priority: 3
+    group: Quality Metrics
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the sharpness level of the biometric image.
+  compression_artifacts_scalar:
+    label: Compression Artifacts
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the level of compression artifacts present in the
+      biometric data.
+  natural_colour_scalar:
+    label: Natural Color
+    priority: 1
+    group: Visual Characteristics
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the natural color characteristics of the image.
+  single_face_present_scalar:
+    label: Single Face Presence
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates whether a single face is present in the image.
+  eyes_open_scalar:
+    label: Eyes Open
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates whether the subject's eyes are open during the capture.
+  mouth_closed_scalar:
+    label: Mouth Closed
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the quality of the mouth closed feature.
+  eyes_visible_scalar:
+    label: Visible Eyes
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the percentage of visible eye area in the image.
+  mouth_occlusion_prevention_scalar:
+    label: Mouth Occlusion
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents a scalar value indicating the level of mouth occlusion.
+  face_occlusion_prevention_scalar:
+    label: Occlusion Prevention
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents a scalar value indicating the effectiveness of occlusion
+      prevention techniques.
+  inter_eye_distance_scalar:
+    label: Inter Eye Distance
+    priority: 2
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Measures the distance between the subject's eyes.
+  head_size_scalar:
+    label: Head Size
+    priority: 1
+    group: Visual Characteristics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the measured size of the head in a given image.
+  leftward_crop_of_the_face_image_scalar:
+    label: Leftward Crop Distance
+    priority: 1
+    group: Crop & Positioning Data
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the distance of the leftward crop applied to the face image.
+  rightward_crop_of_the_face_image_scalar:
+    label: Rightward Crop Distance
+    priority: 1
+    group: Crop & Positioning Data
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the distance of the right edge of the cropped face image.
+  margin_above_of_the_face_image_scalar:
+    label: Face Margin
+    priority: 1
+    group: Image Metadata
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the distance between the face boundary and the image
+      edge in pixels.
+  margin_below_of_the_face_image_scalar:
+    label: Face Margin Below
+    priority: 3
+    group: Image Metadata
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the distance from the bottom edge of the face image to
+      the nearest edge.
+  head_pose_yaw_scalar:
+    label: Head Yaw
+    priority: 1
+    group: Pose & Head Attributes
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the horizontal head rotation angle in degrees.
+  head_pose_pitch_scalar:
+    label: Head Pitch
+    priority: 1
+    group: Pose & Head Attributes
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the pitch angle of the head in degrees.
+  head_pose_roll_scalar:
+    label: Head Roll
+    priority: 1
+    group: Pose & Head Attributes
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the head roll angle in degrees.
+  expression_neutrality_scalar:
+    label: Neutral Expression
+    priority: 2
+    group: Quality Metrics
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the degree to which the subject's expression is neutral.
+  no_head_coverings_scalar:
+    label: No Head Coverings
+    priority: 1
+    group: Visual Characteristics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Indicates the presence or absence of head coverings in the image.
+  assessment_time_in_ms:
+    label: Assessment Time (ms)
+    priority: 1
+    group: Quality Metrics
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: Represents the time taken to perform the biometric assessment in
+      milliseconds.
+settings:
+  dbscanMinPts: 7
+  dbscanEpsKNN: 0.8
+  umapNNeighbors: 0
+  umapMinDist: 0.45
+  excludeNonScalar: false
+  oneHotEncode: false
+  excludeLowVariance: false
+  hideNonScalar: true
+  hidePerfect: true

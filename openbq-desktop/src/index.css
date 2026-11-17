@@ -1,0 +1,370 @@
+@import "tailwindcss";
+
+@variant dark (html.dark &);
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body { margin: 0; min-height: 100vh; }
+
+
+
+:root {
+  color: #213547;
+  background-color: #ffffff;
+}
+a:hover {
+  color: #747bff;
+}
+
+
+
+
+.logomain {
+  margin: 0;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 94vh;
+}
+
+.logo-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+/* Ring container */
+.segments-container {
+  position: absolute;
+  inset: 0;
+}
+
+/* Base styling for segments */
+.segment {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  opacity: 0;
+  mask: radial-gradient(circle, transparent 60%, black 60%, black 100%);
+  -webkit-mask: radial-gradient(circle, transparent 60%, black 60%, black 100%);
+}
+
+/* 10 segments evenly spaced (36deg each) with gaps - each has individual timing */
+/* Segment 1 - Top (12 o'clock) */
+.segment:nth-child(1) { 
+  background: conic-gradient(from -15deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(1) {
+  animation: segment1 5s linear infinite;
+}
+@keyframes segment1 {
+  0%   { opacity: 0; }
+  2%   { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Segment 2 */
+.segment:nth-child(2) { 
+  background: conic-gradient(from 21deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(2) {
+  animation: segment2 5s linear infinite;
+}
+@keyframes segment2 {
+  0%   { opacity: 0; }
+  5%   { opacity: 0; }
+  7%   { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Segment 3 */
+.segment:nth-child(3) { 
+  background: conic-gradient(from 57deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(3) {
+  animation: segment3 5s linear infinite;
+}
+@keyframes segment3 {
+  0%   { opacity: 0; }
+  10%  { opacity: 0; }
+  12%  { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Segment 4 */
+.segment:nth-child(4) { 
+  background: conic-gradient(from 93deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(4) {
+  animation: segment4 5s linear infinite;
+}
+@keyframes segment4 {
+  0%   { opacity: 0; }
+  15%  { opacity: 0; }
+  17%  { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Segment 5 */
+.segment:nth-child(5) { 
+  background: conic-gradient(from 129deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(5) {
+  animation: segment5 5s linear infinite;
+}
+@keyframes segment5 {
+  0%   { opacity: 0; }
+  20%  { opacity: 0; }
+  22%  { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Segment 6 */
+.segment:nth-child(6) { 
+  background: conic-gradient(from 165deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(6) {
+  animation: segment6 5s linear infinite;
+}
+@keyframes segment6 {
+  0%   { opacity: 0; }
+  25%  { opacity: 0; }
+  27%  { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Segment 7 */
+.segment:nth-child(7) { 
+  background: conic-gradient(from 201deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(7) {
+  animation: segment7 5s linear infinite;
+}
+@keyframes segment7 {
+  0%   { opacity: 0; }
+  30%  { opacity: 0; }
+  32%  { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Segment 8 */
+.segment:nth-child(8) { 
+  background: conic-gradient(from 237deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(8) {
+  animation: segment8 5s linear infinite;
+}
+@keyframes segment8 {
+  0%   { opacity: 0; }
+  35%  { opacity: 0; }
+  37%  { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Segment 9 */
+.segment:nth-child(9) { 
+  background: conic-gradient(from 273deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(9) {
+  animation: segment9 5s linear infinite;
+}
+@keyframes segment9 {
+  0%   { opacity: 0; }
+  40%  { opacity: 0; }
+  42%  { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Segment 10 */
+.segment:nth-child(10) { 
+  background: conic-gradient(from 309deg, #4A90CE 0deg 30deg, transparent 30deg); 
+}
+.segments-container.animated .segment:nth-child(10) {
+  animation: segment10 5s linear infinite;
+}
+@keyframes segment10 {
+  0%   { opacity: 0; }
+  45%  { opacity: 0; }
+  47%  { opacity: 1; }
+  49%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Inner circle and user icon */
+.inner-circle {
+  position: absolute;
+  inset: 12%;
+  background: white;
+  border-radius: 50%;
+  border: 6px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.inner-circle-white {
+  position: absolute;
+  inset: 2%;
+  background: rgb(0 0 0 100%);
+  border-radius: 50%;
+  border: 6px solid rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.user-icon {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10%;
+  transform: translateX(0); /* Default centered position */
+}
+
+/* User icon only animates when .animated class is present */
+.user-icon.animated {
+  animation: slideUser 5s linear infinite;
+}
+
+/* Person animation: stay centered, then slide right, new person comes from left */
+@keyframes slideUser {
+  0%   { transform: translateX(0); opacity: 1; }      /* Start centered */
+  54%  { transform: translateX(0); opacity: 1; }      /* Stay centered for 80% of the time */
+  75%  { transform: translateX(100%); opacity: 1; }   /* Slide right off-screen */
+  75.1%{ transform: translateX(100%); opacity: 0; }   /* Hide */
+  75.2%{ transform: translateX(-100%); opacity: 0; }  /* Jump to left off-screen (hidden) */
+  95%  { transform: translateX(-100%); opacity: 1; }  /* Show again */
+  100% { transform: translateX(0); opacity: 1; }      /* Slide back to center */
+}
+
+.user-head {
+  width: 35%;
+  aspect-ratio: 1;
+  background: #4A90CE;
+  border-radius: 50%;
+  margin-bottom: 3%;
+}
+
+.user-body {
+  width: 60%;
+  height: 65%;
+  background: #4A90CE;
+  border-radius: 45% 45% 0 0 / 25% 25% 0 0;
+}
+
+/* Error overlay centred on logo */
+.error-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* allows clicks through if needed */
+  z-index: 5;
+}
+
+/* Error container */
+.error-box {
+  min-width: 220px;
+  max-width: 260px;
+  padding: 14px 16px;
+  border-radius: 14px;
+
+  /* Glass effect */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* Theme adaptive */
+  background: rgba(255, 255, 255, 0.75);
+  color: #7f1d1d;
+
+  /* Border + glow */
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  box-shadow:
+    0 0 18px rgba(239, 68, 68, 0.25),
+    inset 0 0 12px rgba(239, 68, 68, 0.15);
+
+  text-align: center;
+
+  animation: errorPulse 2.2s ease-in-out infinite;
+}
+
+/* Title */
+.error-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+
+/* Message text */
+.error-text {
+  font-size: 0.9rem;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+/* Dark mode override */
+@media (prefers-color-scheme: dark) {
+  .error-box {
+    background: rgba(20, 20, 28, 0.75);
+    color: #fecaca;
+    border: 1px solid rgba(248, 113, 113, 0.35);
+
+    box-shadow:
+      0 0 22px rgba(248, 113, 113, 0.35),
+      inset 0 0 14px rgba(248, 113, 113, 0.18);
+  }
+}
+
+/* Subtle pulse animation */
+@keyframes errorPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 18px rgba(239, 68, 68, 0.25),
+      inset 0 0 12px rgba(239, 68, 68, 0.15);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow:
+      0 0 28px rgba(239, 68, 68, 0.45),
+      inset 0 0 18px rgba(239, 68, 68, 0.25);
+  }
+}

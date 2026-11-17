@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+      - '[0-9]*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name for release (optional if triggered on tag push)'
+        required: false
+        type: string
+
+jobs:
+  # ──────────────── Invoke Build Workflow ────────────────
+  build:
+    name: Build All Platforms
+    uses: ./.github/workflows/build.yml
+
+  # ──────────────── Create GitHub Release ────────────────
+  release:
+    name: Create GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: Display downloaded assets
+        run: ls -lh release-assets
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          name: BQ Insights Desktop ${{ github.event.inputs.tag_name || github.ref_name }}
+          tag_name: ${{ github.event.inputs.tag_name || github.ref_name }}
+          files: |
+            release-assets/*.deb
+            release-assets/*.exe
+            release-assets/*.dmg
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

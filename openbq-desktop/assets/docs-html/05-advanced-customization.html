@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advanced Customization</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --link: #0b63ce;
+      --border: #e5e7eb;
+      --tip: #e8f4ff;
+      --note: #f3f4f6;
+      --warn: #fff4e5;
+      --important: #fdecec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top right, #eef5ff, var(--bg));
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 250px;
+      min-height: 100vh;
+    }
+    .sidebar {
+      border-right: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .sidebar h1 {
+      font-size: 1rem;
+      margin: 0 0 1rem 0;
+      color: #111827;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .brand .label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .brand .sub {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 0.05rem;
+      font-weight: 500;
+    }
+    .sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 0.5rem 0.625rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .sidebar a:hover { background: #f3f4f6; }
+    .sidebar a.active {
+      background: #e8f0ff;
+      color: #0b3d91;
+      font-weight: 600;
+    }
+    .sidebar-support {
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-support a {
+      display: block;
+      text-decoration: none;
+      color: var(--link);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.45rem 0.5rem;
+      border-radius: 0.45rem;
+    }
+    .sidebar-support a:hover {
+      background: #eef4ff;
+    }
+    .content {
+      padding: 2rem 2.5rem;
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .toc {
+      border-left: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .toc h2 {
+      font-size: 0.95rem;
+      margin: 0 0 0.8rem 0;
+      color: #111827;
+    }
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.35;
+      padding: 0.3rem 0.35rem;
+      border-radius: 0.4rem;
+    }
+    .toc a:hover {
+      background: #f3f4f6;
+      color: #111827;
+    }
+    article {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 6px 28px rgba(13, 34, 71, 0.06);
+    }
+    .page-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-head img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .page-head .meta {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .page-head .meta strong {
+      font-size: 0.95rem;
+      color: #111827;
+    }
+    .page-head .meta span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .support-link {
+      margin-top: 0.5rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .support-link a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .support-link a:hover {
+      text-decoration: underline;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    p, li { line-height: 1.65; }
+    a { color: var(--link); }
+    code {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 0.1rem 0.3rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      overflow-x: auto;
+    }
+    pre code {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      color: inherit;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .admonition {
+      border: 1px solid var(--border);
+      border-left-width: 6px;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+    }
+    .admonition-title {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .admonition.tip { background: var(--tip); border-left-color: #3b82f6; }
+    .admonition.note { background: var(--note); border-left-color: #6b7280; }
+    .admonition.warning { background: var(--warn); border-left-color: #f59e0b; }
+    .admonition.important { background: var(--important); border-left-color: #ef4444; }
+    .mermaid {
+      background: #fbfcff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .toc {
+        display: none;
+      }
+      .content { padding: 1rem; }
+      article { padding: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+        <div>
+          <div class="label">OpenBQ Desktop</div>
+          <span class="sub">User Documentation</span>
+        </div>
+      </div>
+      <ul>
+        <li><a class="" href="README.html">OpenBQ Desktop User Manual</a></li><li><a class="" href="01-setup-and-first-run.html">Setup and First Run</a></li><li><a class="" href="02-interface-tour-and-data-loading.html">Interface Tour and Data Loading</a></li><li><a class="" href="03-analysis-workflow.html">Analysis Workflow</a></li><li><a class="" href="04-ai-assistance.html">Using AI Assistance</a></li><li><a class="active" href="05-advanced-customization.html">Advanced Customization</a></li>
+      </ul>
+      <div class="sidebar-support">
+        <a href="mailto:support@openbq.io?subject=Tutorial%20Feedback%3A%20OpenBQ%20Desktop%20User%20Tutorial&body=Hi%20OpenBQ%20team%2C%0A%0AI%20am%20sharing%20feedback%20on%20the%20OpenBQ%20Desktop%20User%20Tutorial.%0A%0AWhat%20worked%20well%3A%0A-%20%0A%0AWhat%20was%20unclear%20or%20missing%3A%0A-%20%0A%0ASuggestions%20to%20improve%20the%20tutorial%3A%0A-%20%0A%0AThanks.">OpenBQ Support &lt;support@openbq.io&gt;</a>
+      </div>
+    </aside>
+    <main class="content">
+      <article>
+        <div class="page-head">
+          <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+          <div class="meta">
+            <strong>OpenBQ Desktop</strong>
+            <span>User Documentation</span>
+            <div class="support-link">
+              <a href="mailto:support@openbq.io">OpenBQ Support &lt;support@openbq.io&gt;</a>
+            </div>
+          </div>
+        </div>
+        <h1 id="advanced-customization">Advanced Customization</h1>
+<p>This guide covers advanced controls for users who need finer control over clustering behavior, feature preparation, and metadata-driven display.</p>
+<p>Advanced settings are powerful because they can improve cluster quality and interpretability, but they can also unintentionally introduce instability if changed too aggressively.</p>
+<p>Use this section when you are ready to tune analysis deliberately, test changes methodically, and document what works for your dataset profile.</p>
+<aside class="admonition note"><div class="admonition-title">Note</div><p><strong>Things to Think About</strong></p>
+<ul>
+<li>Which parameters are you changing, and why?</li>
+<li>How will you compare &ldquo;before&rdquo; and &ldquo;after&rdquo; in a fair way?</li>
+<li>Are your tuning choices reproducible by another analyst on your team?</li>
+</ul></aside>
+
+<h2 id="scenario-examples">Scenario Examples</h2>
+<h3 id="scenario-a-too-many-tiny-clusters">Scenario A: Too many tiny clusters</h3>
+<p>Your current run produces many micro-clusters that are hard to interpret.<br />
+Try a coarser sensitivity preset, then increase strictness controls to reduce fragmentation.</p>
+<h3 id="scenario-b-one-large-unhelpful-cluster">Scenario B: One large unhelpful cluster</h3>
+<p>Your data collapses into one dominant group with little insight.<br />
+Try finer sensitivity and review feature toggles (non-scalar exclusion, one-hot encoding, low-variance exclusion).</p>
+<h3 id="scenario-c-standardizing-an-internal-sop">Scenario C: Standardizing an internal SOP</h3>
+<p>Your team wants repeatable outcomes across analysts.<br />
+Define baseline settings, test on reference datasets, and save/export bundles for controlled reuse.</p>
+<div class="mermaid">flowchart TD
+  A["Baseline run"] --> B["Change one setting group"]
+  B --> C["Re-run analysis"]
+  C --> D["Compare clusters/outliers"]
+  D --> E{"Improved + stable?"}
+  E -->|Yes| F["Keep setting + document"]
+  E -->|No| G["Revert and try next change"]
+  G --> B</div>
+<h2 id="when-to-use-advanced-settings">When to Use Advanced Settings</h2>
+<p>Use advanced settings when:</p>
+<ul>
+<li>Default clustering is too coarse or too fragmented.</li>
+<li>You need reproducible tuning for a specific dataset type.</li>
+<li>You are building repeatable analyst workflows.</li>
+</ul>
+<p>If you are new to OpenBQ Desktop, start with defaults first.</p>
+<h2 id="cluster-method-selection">Cluster Method Selection</h2>
+<p>Open <strong>Cluster Settings</strong> and choose method:</p>
+<ul>
+<li>
+<p><strong>UMAP HDBSCAN (2D)</strong>:
+  Good default for density-based groups in embedding space.</p>
+</li>
+<li>
+<p><strong>UMAP JS DBSCAN (frontend)</strong>:
+  Useful fallback and comparison mode.</p>
+</li>
+<li>
+<p><strong>PCA HDBSCAN (75% variance)</strong>:
+  Useful when structure is clearer in high-dimensional reductions.</p>
+</li>
+<li>
+<p><strong>Supercluster (UMAP)</strong>:
+  Spatial grouping behavior across UMAP points.</p>
+</li>
+</ul>
+<h2 id="sensitivity-presets">Sensitivity Presets</h2>
+<p>Presets provide quick behavior changes:</p>
+<ul>
+<li><strong>Fine</strong>: more, smaller clusters.</li>
+<li><strong>Balanced</strong>: default compromise.</li>
+<li><strong>Coarse</strong>: fewer, larger clusters.</li>
+<li><strong>Custom</strong>: manual tuning.</li>
+</ul>
+<p>Use presets first, then adjust specific parameters if needed.</p>
+<h2 id="core-tuning-controls">Core Tuning Controls</h2>
+<ul>
+<li>
+<p><strong>Min Points (minPts)</strong>:
+  Minimum points needed for a cluster candidate.</p>
+</li>
+<li>
+<p><strong>Min Samples</strong>:
+  Density strictness. Higher values are more conservative.</p>
+</li>
+<li>
+<p><strong>UMAP Neighbors</strong>:
+  Local vs global structure balance in embedding.</p>
+</li>
+<li>
+<p><strong>UMAP Min Dist</strong>:
+  Visual compactness/separation in embedding.</p>
+</li>
+</ul>
+<p>Practical advice:</p>
+<ul>
+<li>Raise strictness to reduce noisy micro-clusters.</li>
+<li>Lower strictness to detect finer sub-structure.</li>
+</ul>
+<h2 id="feature-engineering-toggles">Feature Engineering Toggles</h2>
+<ul>
+<li>
+<p><strong>Exclude Non Scalar</strong>:
+  Removes non-numeric fields from analysis input.</p>
+</li>
+<li>
+<p><strong>One-hot Encode Categories</strong>:
+  Converts categorical fields into model-usable numeric indicators.</p>
+</li>
+<li>
+<p><strong>Exclude Low Variance</strong>:
+  Removes features that add little differentiation.</p>
+</li>
+</ul>
+<p>These toggles can change clustering outcomes significantly.</p>
+<h2 id="metadata-and-profile-configuration-infojson">Metadata and Profile Configuration (<code>info.json</code>)</h2>
+<p>OpenBQ Desktop can use dataset-side metadata (for example <code>info.json</code>) to control:</p>
+<ul>
+<li>Field configuration/display behavior.</li>
+<li>Profile settings that influence how quality attributes appear.</li>
+</ul>
+<p>Use this when:</p>
+<ul>
+<li>You need consistent interpretation across teams.</li>
+<li>You want predictable field naming and display behavior.</li>
+</ul>
+<h2 id="cache-management-for-controlled-experiments">Cache Management for Controlled Experiments</h2>
+<p>Use <strong>Clear Analysis Cache</strong> before controlled A/B tuning when you need clean reruns.</p>
+<p>Recommended workflow:</p>
+<ol>
+<li>Pick one dataset.</li>
+<li>Record baseline settings.</li>
+<li>Change one setting group at a time.</li>
+<li>Compare cluster summary and outlier changes.</li>
+<li>Save/export bundle when satisfied.</li>
+</ol>
+<h2 id="exportimport-for-repeatability">Export/Import for Repeatability</h2>
+<p>Use analysis bundles to:</p>
+<ul>
+<li>Share results and context with others.</li>
+<li>Restore analysis state later.</li>
+<li>Improve reproducibility between environments.</li>
+</ul>
+<p>This is strongly recommended for team-based quality reviews.</p>
+      </article>
+    </main>
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul>
+        <li><a href="#scenario-examples">Scenario Examples</a></li><li><a href="#when-to-use-advanced-settings">When to Use Advanced Settings</a></li><li><a href="#cluster-method-selection">Cluster Method Selection</a></li><li><a href="#sensitivity-presets">Sensitivity Presets</a></li><li><a href="#core-tuning-controls">Core Tuning Controls</a></li><li><a href="#feature-engineering-toggles">Feature Engineering Toggles</a></li><li><a href="#metadata-and-profile-configuration-infojson">Metadata and Profile Configuration (info.json)</a></li><li><a href="#cache-management-for-controlled-experiments">Cache Management for Controlled Experiments</a></li><li><a href="#exportimport-for-repeatability">Export/Import for Repeatability</a></li>
+      </ul>
+    </aside>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      window.mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        securityLevel: "loose",
+        flowchart: { useMaxWidth: true }
+      });
+    }
+  </script>
+</body>
+</html>

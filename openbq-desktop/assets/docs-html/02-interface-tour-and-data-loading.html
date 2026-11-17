@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interface Tour and Data Loading</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --link: #0b63ce;
+      --border: #e5e7eb;
+      --tip: #e8f4ff;
+      --note: #f3f4f6;
+      --warn: #fff4e5;
+      --important: #fdecec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top right, #eef5ff, var(--bg));
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 250px;
+      min-height: 100vh;
+    }
+    .sidebar {
+      border-right: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .sidebar h1 {
+      font-size: 1rem;
+      margin: 0 0 1rem 0;
+      color: #111827;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .brand .label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .brand .sub {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 0.05rem;
+      font-weight: 500;
+    }
+    .sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 0.5rem 0.625rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .sidebar a:hover { background: #f3f4f6; }
+    .sidebar a.active {
+      background: #e8f0ff;
+      color: #0b3d91;
+      font-weight: 600;
+    }
+    .sidebar-support {
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-support a {
+      display: block;
+      text-decoration: none;
+      color: var(--link);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.45rem 0.5rem;
+      border-radius: 0.45rem;
+    }
+    .sidebar-support a:hover {
+      background: #eef4ff;
+    }
+    .content {
+      padding: 2rem 2.5rem;
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .toc {
+      border-left: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .toc h2 {
+      font-size: 0.95rem;
+      margin: 0 0 0.8rem 0;
+      color: #111827;
+    }
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.35;
+      padding: 0.3rem 0.35rem;
+      border-radius: 0.4rem;
+    }
+    .toc a:hover {
+      background: #f3f4f6;
+      color: #111827;
+    }
+    article {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 6px 28px rgba(13, 34, 71, 0.06);
+    }
+    .page-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-head img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .page-head .meta {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .page-head .meta strong {
+      font-size: 0.95rem;
+      color: #111827;
+    }
+    .page-head .meta span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .support-link {
+      margin-top: 0.5rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .support-link a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .support-link a:hover {
+      text-decoration: underline;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    p, li { line-height: 1.65; }
+    a { color: var(--link); }
+    code {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 0.1rem 0.3rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      overflow-x: auto;
+    }
+    pre code {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      color: inherit;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .admonition {
+      border: 1px solid var(--border);
+      border-left-width: 6px;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+    }
+    .admonition-title {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .admonition.tip { background: var(--tip); border-left-color: #3b82f6; }
+    .admonition.note { background: var(--note); border-left-color: #6b7280; }
+    .admonition.warning { background: var(--warn); border-left-color: #f59e0b; }
+    .admonition.important { background: var(--important); border-left-color: #ef4444; }
+    .mermaid {
+      background: #fbfcff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .toc {
+        display: none;
+      }
+      .content { padding: 1rem; }
+      article { padding: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+        <div>
+          <div class="label">OpenBQ Desktop</div>
+          <span class="sub">User Documentation</span>
+        </div>
+      </div>
+      <ul>
+        <li><a class="" href="README.html">OpenBQ Desktop User Manual</a></li><li><a class="" href="01-setup-and-first-run.html">Setup and First Run</a></li><li><a class="active" href="02-interface-tour-and-data-loading.html">Interface Tour and Data Loading</a></li><li><a class="" href="03-analysis-workflow.html">Analysis Workflow</a></li><li><a class="" href="04-ai-assistance.html">Using AI Assistance</a></li><li><a class="" href="05-advanced-customization.html">Advanced Customization</a></li>
+      </ul>
+      <div class="sidebar-support">
+        <a href="mailto:support@openbq.io?subject=Tutorial%20Feedback%3A%20OpenBQ%20Desktop%20User%20Tutorial&body=Hi%20OpenBQ%20team%2C%0A%0AI%20am%20sharing%20feedback%20on%20the%20OpenBQ%20Desktop%20User%20Tutorial.%0A%0AWhat%20worked%20well%3A%0A-%20%0A%0AWhat%20was%20unclear%20or%20missing%3A%0A-%20%0A%0ASuggestions%20to%20improve%20the%20tutorial%3A%0A-%20%0A%0AThanks.">OpenBQ Support &lt;support@openbq.io&gt;</a>
+      </div>
+    </aside>
+    <main class="content">
+      <article>
+        <div class="page-head">
+          <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+          <div class="meta">
+            <strong>OpenBQ Desktop</strong>
+            <span>User Documentation</span>
+            <div class="support-link">
+              <a href="mailto:support@openbq.io">OpenBQ Support &lt;support@openbq.io&gt;</a>
+            </div>
+          </div>
+        </div>
+        <h1 id="interface-tour-and-data-loading">Interface Tour and Data Loading</h1>
+<p>This section explains what each major part of OpenBQ Desktop is for and how those parts fit together during real analysis work.</p>
+<p>Many users jump straight into loading data and miss how the interface is designed to support a workflow: status first, visual exploration second, and evidence review third. Understanding this flow makes the tool feel much simpler.</p>
+<p>You will also learn when to use each loading path (directory, tabular file, or bundle archive) so your data enters OpenBQ Desktop in the most efficient and reliable way.</p>
+<aside class="admonition tip"><div class="admonition-title">Tip</div><p><strong>Things to Think About</strong></p>
+<ul>
+<li>Which loading method best matches your current data source?</li>
+<li>Do you need reproducibility (bundle import/export) or quick exploration?</li>
+<li>What signals in the status/log areas tell you a run is healthy?</li>
+</ul></aside>
+
+<h2 id="scenario-examples">Scenario Examples</h2>
+<h3 id="scenario-a-you-received-a-folder-from-operations">Scenario A: You received a folder from operations</h3>
+<p>Operations sends a raw biometric capture folder.<br />
+Use <strong>Open Directory</strong> so OpenBQ Desktop can process directly from source files.</p>
+<h3 id="scenario-b-you-received-a-csv-from-another-analyst">Scenario B: You received a CSV from another analyst</h3>
+<p>Another analyst already exported rows to CSV/XLSX.<br />
+Use <strong>File &gt; Open</strong> for the fastest path into visual analysis.</p>
+<h3 id="scenario-c-you-need-to-continue-someone-elses-work">Scenario C: You need to continue someone else&rsquo;s work</h3>
+<p>You are asked to continue a previous investigation exactly where it left off.<br />
+Use <strong>Import Analysis Bundle</strong> to restore rows and metadata context.</p>
+<div class="mermaid">flowchart LR
+  A["What data do you have?"] --> B["Raw folder"]
+  A --> C["CSV/XLSX"]
+  A --> D["OpenBQ Desktop ZIP bundle"]
+  B --> E["Open Directory"]
+  C --> F["File > Open"]
+  D --> G["Import Analysis Bundle"]
+  E --> H["Start Analysis"]
+  F --> H
+  G --> H</div>
+<h2 id="interface-tour">Interface Tour</h2>
+<p><img src="main_screen.png" alt="Description" width="700"></p>
+<p>OpenBQ Desktop is organized into four practical work areas:</p>
+<h2 id="side-panel">Side Panel</h2>
+<p>What it is:</p>
+<ul>
+<li>The status and onboarding area shown before or during processing.</li>
+</ul>
+<p>What it is for:</p>
+<ul>
+<li>Showing startup/processing state.</li>
+<li>Displaying errors or warnings.</li>
+<li>Offering cancel controls when processing is active.</li>
+</ul>
+<p>When you use it:</p>
+<ul>
+<li>At app start.</li>
+<li>While data is being loaded/analyzed.</li>
+<li>When troubleshooting failed runs.</li>
+</ul>
+<h2 id="main-panel">Main Panel</h2>
+<p>What it is:</p>
+<ul>
+<li>The central visualization workspace.</li>
+</ul>
+<p>What it is for:</p>
+<ul>
+<li>Viewing UMAP points (the 2D data map).</li>
+<li>Exploring structure, spread, clusters, and outliers.</li>
+<li>Selecting points or groups for deeper review.</li>
+</ul>
+<p>When you use it:</p>
+<ul>
+<li>During active analysis.</li>
+<li>Any time you need to visually compare patterns.</li>
+</ul>
+<h2 id="detail-panel">Detail Panel</h2>
+<p>What it is:</p>
+<ul>
+<li>The right-side inspection panel for selected data.</li>
+</ul>
+<p>What it is for:</p>
+<ul>
+<li>Viewing quality attributes for selected records.</li>
+<li>Seeing cluster summary metrics.</li>
+<li>Running AI actions such as “AI Summary” and “AI Label Clusters.”</li>
+</ul>
+<p>When you use it:</p>
+<ul>
+<li>After selecting an individual record or a group.</li>
+<li>When turning visual observations into concrete findings.</li>
+</ul>
+<h2 id="status-panel">Status Panel</h2>
+<p>What it is:</p>
+<ul>
+<li>The bottom log/status area (sometimes casually called the “statis” panel).</li>
+</ul>
+<p>What it is for:</p>
+<ul>
+<li>Showing processing logs and run progress.</li>
+<li>Helping you diagnose slow or failed runs.</li>
+</ul>
+<p>When you use it:</p>
+<ul>
+<li>During long analysis runs.</li>
+<li>During setup/troubleshooting.</li>
+</ul>
+<h2 id="data-loading-methods">Data Loading Methods</h2>
+<p>OpenBQ Desktop supports three common ways to start analysis.</p>
+<h2 id="1-load-from-a-biometric-directory">1) Load from a biometric directory</h2>
+<p>Best for:</p>
+<ul>
+<li>Raw capture folders and operational data drops.</li>
+</ul>
+<p>Steps:</p>
+<ol>
+<li>Click <strong>Open Directory</strong>.</li>
+<li>Select the folder containing biometric files.</li>
+<li>Choose modality/analysis options.</li>
+<li>Start analysis.</li>
+</ol>
+<p>Why use this:</p>
+<ul>
+<li>Natural workflow when data is organized in folders.</li>
+<li>Good for end-to-end processing from source files.</li>
+</ul>
+<h2 id="2-load-from-csvxlsx">2) Load from CSV/XLSX</h2>
+<p>Best for:</p>
+<ul>
+<li>Prepared datasets, exported reports, and tabular quality records.</li>
+</ul>
+<p>Steps:</p>
+<ol>
+<li>Use <strong>File &gt; Open</strong>.</li>
+<li>Select <code>.csv</code> or <code>.xlsx</code>.</li>
+<li>OpenBQ Desktop parses rows and begins the analysis workflow.</li>
+</ol>
+<p>Why use this:</p>
+<ul>
+<li>Fastest path when data is already tabular.</li>
+<li>Useful for repeat analysis and shared analyst workflows.</li>
+</ul>
+<h2 id="3-load-from-an-archive-analysis-bundle-zip">3) Load from an archive (Analysis Bundle ZIP)</h2>
+<p>Best for:</p>
+<ul>
+<li>Sharing complete analysis context between machines/users.</li>
+<li>Restoring prior work with metadata/cache context.</li>
+</ul>
+<p>Steps:</p>
+<ol>
+<li>Use <strong>Import Analysis Bundle</strong>.</li>
+<li>Select a previously exported OpenBQ Desktop ZIP bundle.</li>
+<li>OpenBQ Desktop restores rows and associated metadata.</li>
+</ol>
+<p>Why use this:</p>
+<ul>
+<li>Improves reproducibility and collaboration.</li>
+<li>Reduces rework when analysis context must be preserved.</li>
+</ul>
+<h2 id="caching-what-it-means-for-daily-use">Caching: What It Means for Daily Use</h2>
+<p>OpenBQ Desktop uses caching to speed up repeat analysis.</p>
+<h2 id="umap-cache">UMAP cache</h2>
+<p>Purpose:</p>
+<ul>
+<li>Reuse previously computed embeddings when inputs/settings match.</li>
+</ul>
+<p>Benefit:</p>
+<ul>
+<li>Faster reruns, especially during parameter tuning.</li>
+</ul>
+<h2 id="analysiscluster-cache-metadata">Analysis/cluster cache metadata</h2>
+<p>Purpose:</p>
+<ul>
+<li>Preserve processed context tied to dataset and settings.</li>
+</ul>
+<p>Benefit:</p>
+<ul>
+<li>Less repeated compute and quicker return to prior states.</li>
+</ul>
+<h2 id="when-to-clear-cache">When to clear cache</h2>
+<p>Use <strong>Settings &gt; Clear Analysis Cache</strong> when:</p>
+<ul>
+<li>Results appear stale.</li>
+<li>You changed data content significantly.</li>
+<li>You are validating whether a parameter change truly changes output.</li>
+</ul>
+      </article>
+    </main>
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul>
+        <li><a href="#scenario-examples">Scenario Examples</a></li><li><a href="#interface-tour">Interface Tour</a></li><li><a href="#side-panel">Side Panel</a></li><li><a href="#main-panel">Main Panel</a></li><li><a href="#detail-panel">Detail Panel</a></li><li><a href="#status-panel">Status Panel</a></li><li><a href="#data-loading-methods">Data Loading Methods</a></li><li><a href="#1-load-from-a-biometric-directory">1) Load from a biometric directory</a></li><li><a href="#2-load-from-csvxlsx">2) Load from CSV/XLSX</a></li><li><a href="#3-load-from-an-archive-analysis-bundle-zip">3) Load from an archive (Analysis Bundle ZIP)</a></li><li><a href="#caching-what-it-means-for-daily-use">Caching: What It Means for Daily Use</a></li><li><a href="#umap-cache">UMAP cache</a></li><li><a href="#analysiscluster-cache-metadata">Analysis/cluster cache metadata</a></li><li><a href="#when-to-clear-cache">When to clear cache</a></li>
+      </ul>
+    </aside>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      window.mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        securityLevel: "loose",
+        flowchart: { useMaxWidth: true }
+      });
+    }
+  </script>
+</body>
+</html>

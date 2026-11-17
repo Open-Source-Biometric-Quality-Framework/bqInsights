@@ -1,0 +1,202 @@
+{
+  "review": {
+    "prompt": "review",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "parseLineFormat"
+    ],
+    "meta": {
+      "label": "Review",
+      "inputKind": "doc",
+      "outputKind": "categories"
+    }
+  },
+  "observations": {
+    "prompt": "observations",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "parseLineFormat"
+    ],
+    "meta": {
+      "label": "Observations",
+      "inputKind": "doc",
+      "outputKind": "categories"
+    }
+  },
+  "transcription": {
+    "prompt": "transcription",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "mdToHtml",
+      "extractFenced",
+      [
+        "wrapSingle",
+        "Transcription"
+      ]
+    ],
+    "meta": {
+      "label": "Transcription",
+      "inputKind": "plain",
+      "outputKind": "categories"
+    }
+  },
+  "actions": {
+    "prompt": "actions",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "mdToHtml",
+      "extractFenced",
+      [
+        "wrapSingle",
+        "Transcription"
+      ]
+    ],
+    "meta": {
+      "label": "Actions",
+      "inputKind": "plain",
+      "outputKind": "categories"
+    }
+  },
+  "minutes": {
+    "prompt": "minutes",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "mdToHtml",
+      "extractFenced",
+      [
+        "wrapSingle",
+        "Transcription"
+      ]
+    ],
+    "meta": {
+      "label": "Minutes",
+      "inputKind": "plain",
+      "outputKind": "categories"
+    }
+  },
+  "facts": {
+    "prompt": "facts",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "parseLineFormat"
+    ],
+    "meta": {
+      "label": "Facts",
+      "inputKind": "doc",
+      "outputKind": "categories"
+    }
+  },
+  "emails": {
+    "prompt": "emails",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "mdToHtml",
+      "extractFenced",
+      [
+        "wrapSingle",
+        "emails"
+      ]
+    ],
+    "meta": {
+      "label": "Emails",
+      "inputKind": "email",
+      "outputKind": "categories"
+    }
+  },
+  "reply": {
+    "prompt": "reply",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "mdToHtml",
+      [
+        "wrapSingle",
+        "reply"
+      ]
+    ],
+    "meta": {
+      "label": "Reply",
+      "inputKind": "email",
+      "outputKind": "categories"
+    }
+  },
+  "quiz": {
+    "prompt": "quiz",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "parseLineFormat"
+    ],
+    "meta": {
+      "label": "Quiz",
+      "inputKind": "doc",
+      "outputKind": "categories"
+    }
+  },
+  "presentation": {
+    "prompt": "presentation",
+    "pre": [
+      "normaliseInput"
+    ],
+    "post": [
+      "slideLists",
+      "parseLineFormat"
+    ],
+    "meta": {
+      "label": "Presentation",
+      "inputKind": "doc",
+      "outputKind": "categories"
+    }
+  },
+  "cluster": {
+    "prompt": "cluster",
+    "pre": [
+      "normaliseInput",
+      "toClusters"
+    ],
+    "post": [
+      "sectionsFromHeadings",
+      "parseLineFormat"
+    ],
+    "meta": {
+      "label": "Cluster",
+      "inputKind": "excel",
+      "outputKind": "categories"
+    }
+  },
+  "outlier": {
+    "prompt": "outlier",
+    "pre": [
+      "normaliseInput",
+      "toOutliers"
+    ],
+    "post": [
+      "extractFenced",
+      [
+        "wrapSingle",
+        "outlier"
+      ]
+    ],
+    "meta": {
+      "label": "Outlier",
+      "inputKind": "excel",
+      "outputKind": "categories"
+    }
+  }
+}

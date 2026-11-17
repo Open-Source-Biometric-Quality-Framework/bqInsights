@@ -1,0 +1,14 @@
+{
+  "name": "@biometix/bx-llm-proc",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@turf/clusters-dbscan": "^7.3.1",
+    "markdown-it": "^14.1.0",
+    "openai": "^6.16.0"
+  }
+}

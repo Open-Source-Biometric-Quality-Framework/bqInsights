@@ -1,0 +1,1482 @@
+profile_id: c5c3bffe
+settings:
+  dbscanMinPts: 5
+  dbscanEpsKNN: 0.8
+  umapNNeighbors: 0
+  umapMinDist: 0.3
+  excludeNonScalar: false
+  oneHotEncode: false
+  excludeLowVariance: false
+  hideNonScalar: false
+  hidePerfect: false
+fields:
+  assessment_time_in_ms:
+    label: "Assessment Time (ms)"
+    priority: 10
+    group: "System"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  background_uniformity:
+    label: "Background Uniformity"
+    priority: 33
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  background_uniformity_scalar:
+    label: "Background Uniformity (Scalar)"
+    priority: 32
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  brightness:
+    label: "Brightness"
+    priority: 35
+    group: "Image Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  compression_artifacts:
+    label: "Compression Artifacts"
+    priority: 24
+    group: "Image Artefacts"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  compression_artifacts_scalar:
+    label: "Compression Artifacts (Scalar)"
+    priority: 23
+    group: "Image Artefacts"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  contrast:
+    label: "Contrast"
+    priority: 34
+    group: "Image Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  dynamic_range:
+    label: "Dynamic Range"
+    priority: 32
+    group: "Image Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  dynamic_range_scalar:
+    label: "Dynamic Range (Scalar)"
+    priority: 21
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  edge_std:
+    label: "Corrupted"
+    priority: 47
+    group: "Corrupt"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  empty_image_or_contrast_too_low:
+    label: "Contrast"
+    priority: 47
+    group: "Image Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  expression_neutrality:
+    label: "Expression Neutrality"
+    priority: 48
+    group: "Expression"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  expression_neutrality_scalar:
+    label: "Expression Neutrality (Scalar)"
+    priority: 47
+    group: "Expression"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  eye_closed_left:
+    label: "Left Eye Closed"
+    priority: 60
+    group: "Facial Features"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  eye_closed_right:
+    label: "Right Eye Closed"
+    priority: 59
+    group: "Facial Features"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  eyes_open:
+    label: "Eyes Open"
+    priority: 77
+    group: "Face Validity"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  eyes_open_scalar:
+    label: "Eyes Open (Scalar)"
+    priority: 76
+    group: "Face Validity"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  eyes_visible:
+    label: "Eyes Visible"
+    priority: 75
+    group: "Face Validity"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  eyes_visible_scalar:
+    label: "Eyes Visible (Scalar)"
+    priority: 74
+    group: "Face Validity"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  face_bottom:
+    label: "Face Bottom (px)"
+    priority: 80
+    group: "Face Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  face_detection:
+    label: "Detection Confidence"
+    priority: 85
+    group: "Face Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  face_left:
+    label: "Face Left (px)"
+    priority: 83
+    group: "Face Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  face_occlusion_prevention:
+    label: "Face Occlusion Prevention"
+    priority: 67
+    group: "Occlusion"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  face_occlusion_prevention_scalar:
+    label: "Face Occlusion Prevention (Scalar)"
+    priority: 66
+    group: "Occlusion"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  face_ratio:
+    label: "Face/Image Ratio"
+    priority: 84
+    group: "Face Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  face_right:
+    label: "Face Right (px)"
+    priority: 81
+    group: "Face Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  face_top:
+    label: "Face Top (px)"
+    priority: 82
+    group: "Face Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  file:
+    label: "File Path"
+    priority: 100
+    group: "Identification"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  file_size_bytes:
+    label: "File Size (bytes)"
+    priority: 92
+    group: "Image Properties"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  fingerprint_image_with_minutiae:
+    label: "Number of Minutea"
+    priority: 47
+    group: "Minutiae"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  glasses:
+    label: "Glasses Detected"
+    priority: 54
+    group: "Facial Attributes"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_bottom:
+    label: "Head Bottom (px)"
+    priority: 76
+    group: "Head Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_left:
+    label: "Head Left (px)"
+    priority: 79
+    group: "Head Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_pose_pitch:
+    label: "Head Pose Pitch"
+    priority: 52
+    group: "Head Pose"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_pose_pitch_scalar:
+    label: "Head Pose Pitch (Scalar)"
+    priority: 51
+    group: "Head Pose"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_pose_roll:
+    label: "Head Pose Roll"
+    priority: 50
+    group: "Head Pose"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_pose_roll_scalar:
+    label: "Head Pose Roll (Scalar)"
+    priority: 49
+    group: "Head Pose"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_pose_yaw:
+    label: "Head Pose Yaw"
+    priority: 54
+    group: "Head Pose"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_pose_yaw_scalar:
+    label: "Head Pose Yaw (Scalar)"
+    priority: 53
+    group: "Head Pose"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_right:
+    label: "Head Right (px)"
+    priority: 77
+    group: "Head Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_size:
+    label: "Head Size Ratio"
+    priority: 62
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_size_scalar:
+    label: "Head Size (Scalar)"
+    priority: 61
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  head_top:
+    label: "Head Top (px)"
+    priority: 78
+    group: "Head Detection"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  illumination_uniformity:
+    label: "Illumination Uniformity"
+    priority: 31
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  illumination_uniformity_scalar:
+    label: "Illumination Uniformity (Scalar)"
+    priority: 30
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  image_format:
+    label: "Format"
+    priority: 99
+    group: "Identification"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  image_height:
+    label: "Height (px)"
+    priority: 94
+    group: "Image Properties"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  image_mode:
+    label: "Color Mode"
+    priority: 93
+    group: "Image Properties"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  image_width:
+    label: "Width (px)"
+    priority: 95
+    group: "Image Properties"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  inter_eye_distance:
+    label: "Inter-Eye Distance (px)"
+    priority: 64
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  inter_eye_distance_scalar:
+    label: "Inter-Eye Distance (Scalar)"
+    priority: 63
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  ipd:
+    label: "Interpupillary Distance (px)"
+    priority: 65
+    group: "Facial Features"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  leftward_crop_of_the_face_image:
+    label: "Left Face Crop"
+    priority: 60
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  leftward_crop_of_the_face_image_scalar:
+    label: "Left Face Crop (Scalar)"
+    priority: 59
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  luminance_mean:
+    label: "Luminance Mean"
+    priority: 29
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  luminance_mean_scalar:
+    label: "Luminance Mean (Scalar)"
+    priority: 28
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  luminance_variance:
+    label: "Luminance Variance"
+    priority: 27
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  luminance_variance_scalar:
+    label: "Luminance Variance (Scalar)"
+    priority: 26
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  margin_above_of_the_face_image:
+    label: "Margin Above Face"
+    priority: 56
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  margin_above_of_the_face_image_scalar:
+    label: "Margin Above Face (Scalar)"
+    priority: 55
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  margin_below_of_the_face_image:
+    label: "Margin Below Face"
+    priority: 54
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  margin_below_of_the_face_image_scalar:
+    label: "Margin Below Face (Scalar)"
+    priority: 53
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  mouth_closed:
+    label: "Mouth Closed"
+    priority: 73
+    group: "Face Validity"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  mouth_closed_scalar:
+    label: "Mouth Closed (Scalar)"
+    priority: 72
+    group: "Face Validity"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  mouth_occlusion_prevention:
+    label: "Mouth Occlusion Prevention"
+    priority: 69
+    group: "Occlusion"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  mouth_occlusion_prevention_scalar:
+    label: "Mouth Occlusion Prevention (Scalar)"
+    priority: 68
+    group: "Occlusion"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  natural_colour:
+    label: "Natural Colour"
+    priority: 22
+    group: "Image Artefacts"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  natural_colour_scalar:
+    label: "Natural Colour (Scalar)"
+    priority: 21
+    group: "Image Artefacts"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  nfiq2_score:
+    label: "NFIQ2 (Scalar)"
+    priority: 99
+    group: "Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  no_head_coverings:
+    label: "No Head Coverings"
+    priority: 65
+    group: "Occlusion"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  no_head_coverings_scalar:
+    label: "No Head Coverings (Scalar)"
+    priority: 64
+    group: "Occlusion"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  over_exposure_prevention:
+    label: "Over Exposure Prevention"
+    priority: 23
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  over_exposure_prevention_scalar:
+    label: "Over Exposure Prevention (Scalar)"
+    priority: 22
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  pitch_degree:
+    label: "Pitch Angle (°)"
+    priority: 42
+    group: "Head Pose"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  pitch_pose:
+    label: "Pitch Direction"
+    priority: 43
+    group: "Head Pose"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  pupil_left_x:
+    label: "Left Pupil X"
+    priority: 64
+    group: "Facial Features"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  pupil_left_y:
+    label: "Left Pupil Y"
+    priority: 63
+    group: "Facial Features"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  pupil_right_x:
+    label: "Right Pupil X"
+    priority: 62
+    group: "Facial Features"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  pupil_right_y:
+    label: "Right Pupil Y"
+    priority: 61
+    group: "Facial Features"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  quantized:
+    label: "Quantized"
+    priority: 47
+    group: "Image Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  resampled:
+    label: "Resampled"
+    priority: 47
+    group: "Image Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  rightward_crop_of_the_face_image:
+    label: "Right Face Crop"
+    priority: 58
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  rightward_crop_of_the_face_image_scalar:
+    label: "Right Face Crop (Scalar)"
+    priority: 57
+    group: "Geometry & Framing"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  roll_degree:
+    label: "Roll Angle (°)"
+    priority: 40
+    group: "Head Pose"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  roll_pose:
+    label: "Roll Direction"
+    priority: 41
+    group: "Head Pose"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  sharpness:
+    label: "Sharpness"
+    priority: 33
+    group: "Image Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  sharpness_scalar:
+    label: "Sharpness (Scalar)"
+    priority: 20
+    group: "Image Artefacts"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  single_face_present:
+    label: "Single Face Present"
+    priority: 79
+    group: "Face Validity"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  single_face_present_scalar:
+    label: "Single Face Present (Scalar)"
+    priority: 78
+    group: "Face Validity"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  smile:
+    label: "Smile Detected"
+    priority: 55
+    group: "Facial Attributes"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  sufficient_fingerprint_foreground:
+    label: "Foreground"
+    priority: 47
+    group: "Image Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  under_exposure_prevention:
+    label: "Under Exposure Prevention"
+    priority: 25
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  under_exposure_prevention_scalar:
+    label: "Under Exposure Prevention (Scalar)"
+    priority: 24
+    group: "Illumination & Exposure"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  unified_quality_score:
+    label: "Unified Quality Score"
+    priority: 39
+    group: "Quality Assessment"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  unified_quality_score_scalar:
+    label: "Unified Quality Score (Scalar)"
+    priority: 38
+    group: "Quality Assessment"
+    is_score: false
+    is_scalar: true
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  uniform_image:
+    label: "Uniform"
+    priority: 47
+    group: "Image Quality"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  yaw_degree:
+    label: "Yaw Angle (°)"
+    priority: 44
+    group: "Head Pose"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25
+  yaw_pose:
+    label: "Yaw Direction"
+    priority: 45
+    group: "Head Pose"
+    is_score: false
+    is_scalar: false
+    is_index: false
+    exclude: false
+    is_image: false
+    description: ""
+    thresholds:
+      very_good: 90
+      good: 76
+      poor: 50
+      very_poor: 25

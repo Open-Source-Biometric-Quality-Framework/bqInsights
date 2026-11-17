@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Using AI Assistance</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --link: #0b63ce;
+      --border: #e5e7eb;
+      --tip: #e8f4ff;
+      --note: #f3f4f6;
+      --warn: #fff4e5;
+      --important: #fdecec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top right, #eef5ff, var(--bg));
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 250px;
+      min-height: 100vh;
+    }
+    .sidebar {
+      border-right: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .sidebar h1 {
+      font-size: 1rem;
+      margin: 0 0 1rem 0;
+      color: #111827;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .brand .label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .brand .sub {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 0.05rem;
+      font-weight: 500;
+    }
+    .sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 0.5rem 0.625rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .sidebar a:hover { background: #f3f4f6; }
+    .sidebar a.active {
+      background: #e8f0ff;
+      color: #0b3d91;
+      font-weight: 600;
+    }
+    .sidebar-support {
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-support a {
+      display: block;
+      text-decoration: none;
+      color: var(--link);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.45rem 0.5rem;
+      border-radius: 0.45rem;
+    }
+    .sidebar-support a:hover {
+      background: #eef4ff;
+    }
+    .content {
+      padding: 2rem 2.5rem;
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .toc {
+      border-left: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .toc h2 {
+      font-size: 0.95rem;
+      margin: 0 0 0.8rem 0;
+      color: #111827;
+    }
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.35;
+      padding: 0.3rem 0.35rem;
+      border-radius: 0.4rem;
+    }
+    .toc a:hover {
+      background: #f3f4f6;
+      color: #111827;
+    }
+    article {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 6px 28px rgba(13, 34, 71, 0.06);
+    }
+    .page-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-head img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .page-head .meta {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .page-head .meta strong {
+      font-size: 0.95rem;
+      color: #111827;
+    }
+    .page-head .meta span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .support-link {
+      margin-top: 0.5rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .support-link a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .support-link a:hover {
+      text-decoration: underline;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    p, li { line-height: 1.65; }
+    a { color: var(--link); }
+    code {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 0.1rem 0.3rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      overflow-x: auto;
+    }
+    pre code {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      color: inherit;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .admonition {
+      border: 1px solid var(--border);
+      border-left-width: 6px;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+    }
+    .admonition-title {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .admonition.tip { background: var(--tip); border-left-color: #3b82f6; }
+    .admonition.note { background: var(--note); border-left-color: #6b7280; }
+    .admonition.warning { background: var(--warn); border-left-color: #f59e0b; }
+    .admonition.important { background: var(--important); border-left-color: #ef4444; }
+    .mermaid {
+      background: #fbfcff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .toc {
+        display: none;
+      }
+      .content { padding: 1rem; }
+      article { padding: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+        <div>
+          <div class="label">OpenBQ Desktop</div>
+          <span class="sub">User Documentation</span>
+        </div>
+      </div>
+      <ul>
+        <li><a class="" href="README.html">OpenBQ Desktop User Manual</a></li><li><a class="" href="01-setup-and-first-run.html">Setup and First Run</a></li><li><a class="" href="02-interface-tour-and-data-loading.html">Interface Tour and Data Loading</a></li><li><a class="" href="03-analysis-workflow.html">Analysis Workflow</a></li><li><a class="active" href="04-ai-assistance.html">Using AI Assistance</a></li><li><a class="" href="05-advanced-customization.html">Advanced Customization</a></li>
+      </ul>
+      <div class="sidebar-support">
+        <a href="mailto:support@openbq.io?subject=Tutorial%20Feedback%3A%20OpenBQ%20Desktop%20User%20Tutorial&body=Hi%20OpenBQ%20team%2C%0A%0AI%20am%20sharing%20feedback%20on%20the%20OpenBQ%20Desktop%20User%20Tutorial.%0A%0AWhat%20worked%20well%3A%0A-%20%0A%0AWhat%20was%20unclear%20or%20missing%3A%0A-%20%0A%0ASuggestions%20to%20improve%20the%20tutorial%3A%0A-%20%0A%0AThanks.">OpenBQ Support &lt;support@openbq.io&gt;</a>
+      </div>
+    </aside>
+    <main class="content">
+      <article>
+        <div class="page-head">
+          <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+          <div class="meta">
+            <strong>OpenBQ Desktop</strong>
+            <span>User Documentation</span>
+            <div class="support-link">
+              <a href="mailto:support@openbq.io">OpenBQ Support &lt;support@openbq.io&gt;</a>
+            </div>
+          </div>
+        </div>
+        <h1 id="using-ai-assistance">Using AI Assistance</h1>
+<p>This section explains how to configure AI in OpenBQ Desktop and how to use it safely for cluster, individual, and report-style analysis.</p>
+<p>AI features are most useful when they help you communicate findings faster and more clearly. They are less useful when treated as an unquestioned source of truth.</p>
+<p>Think of AI as a quality analyst assistant: fast at summarizing and labeling, but still dependent on your judgment, your data quality, and your verification discipline.</p>
+<aside class="admonition warning"><div class="admonition-title">Warning</div><p><strong>Things to Think About</strong></p>
+<ul>
+<li>Are you using AI output as a draft or as a final conclusion?</li>
+<li>What verification step will you use before sharing AI-generated findings?</li>
+<li>Does your organization require local AI only, or allow external providers?</li>
+</ul></aside>
+
+<h2 id="scenario-examples">Scenario Examples</h2>
+<h3 id="scenario-a-executive-briefing-in-one-hour">Scenario A: Executive briefing in one hour</h3>
+<p>You need a concise summary of major quality findings quickly.<br />
+Use AI cluster summary to draft a narrative, then validate key statements against actual cluster metrics.</p>
+<h3 id="scenario-b-training-a-junior-analyst">Scenario B: Training a junior analyst</h3>
+<p>A junior analyst is unsure how to interpret a complex sample.<br />
+Use AI individual summary as a teaching aid, then compare AI wording to the real underlying attributes.</p>
+<h3 id="scenario-c-naming-clusters-for-a-stakeholder-deck">Scenario C: Naming clusters for a stakeholder deck</h3>
+<p>Cluster IDs are hard for non-technical audiences.<br />
+Use <strong>AI Label Clusters</strong> to create plain-language labels, but keep numeric IDs available for traceability.</p>
+<div class="mermaid">flowchart LR
+  A["Configure AI backend/model"] --> B["Run AI Label Clusters"]
+  B --> C["Run AI Summary (group/individual)"]
+  C --> D["Validate against metrics"]
+  D --> E["Publish/report findings"]</div>
+<h2 id="what-ai-features-are-for">What AI Features Are For</h2>
+<p>AI in OpenBQ Desktop is designed to:</p>
+<ul>
+<li>Translate technical quality metrics into plain-language explanations.</li>
+<li>Label clusters with short, human-readable descriptions.</li>
+<li>Speed up triage and report drafting.</li>
+</ul>
+<p>AI is an assistant, not a replacement for analyst judgment.</p>
+<h2 id="ai-settings">AI Settings</h2>
+<p>Open <strong>Settings</strong> and configure:</p>
+<ul>
+<li>Backend: <code>ollama</code>, <code>openai</code>, <code>claude</code> (and <code>apple</code> on macOS where available)</li>
+<li>Model name</li>
+<li>Temperature (creativity vs consistency)</li>
+<li>Max tokens (response length limit)</li>
+<li>Optional focus instructions (named prompt guidance sets)</li>
+</ul>
+<h2 id="recommended-setup-for-non-experts">Recommended Setup for Non-Experts</h2>
+<p>If your organization prefers local processing:</p>
+<ol>
+<li>Select <strong>Local AI (Ollama)</strong>.</li>
+<li>Set Ollama URL (usually <code>http://localhost:11434</code>).</li>
+<li>Select an installed model.</li>
+<li>Keep temperature moderate for stable summaries.</li>
+</ol>
+<p>If external provider use is allowed:</p>
+<ul>
+<li>OpenAI/Claude can be configured in Settings for cloud responses.</li>
+</ul>
+<h2 id="ai-cluster-analysis-cluster-labels">AI Cluster Analysis (Cluster Labels)</h2>
+<p><img src="umap_ai_cluster.png" width="800"></p>
+<p>Feature:</p>
+<ul>
+<li><strong>AI Label Clusters</strong> in the Detail Panel.</li>
+</ul>
+<p>What it does:</p>
+<ul>
+<li>Reviews key differences per cluster.</li>
+<li>Produces short labels that are easier to present to stakeholders.</li>
+</ul>
+<p>Best use:</p>
+<ul>
+<li>Naming clusters in a meaningful, consistent way for communication.</li>
+</ul>
+<h2 id="ai-individual-analysis">AI Individual Analysis</h2>
+<p><img src="AI_detail_analysis.png" width="400"></p>
+<p>Feature:</p>
+<ul>
+<li><strong>AI Summary</strong> for selected items/records.</li>
+</ul>
+<p>What it does:</p>
+<ul>
+<li>Explains quality attributes and likely issues for one sample.</li>
+<li>Helps analysts quickly understand problematic captures.</li>
+</ul>
+<p>Best use:</p>
+<ul>
+<li>Triage, training, and case-by-case review.</li>
+</ul>
+<h2 id="ai-report-summary">AI Report Summary</h2>
+<p>Feature:</p>
+<ul>
+<li>Cluster-level <strong>AI Summary</strong> in Detail Panel.</li>
+</ul>
+<p>What it does:</p>
+<ul>
+<li>Produces structured narrative sections, including:</li>
+<li>overall quality summary</li>
+<li>cluster findings</li>
+<li>outlier observations</li>
+<li>recommendations</li>
+</ul>
+<p>Best use:</p>
+<ul>
+<li>Drafting internal reports or briefing notes.</li>
+</ul>
+<h2 id="good-ai-practice">Good AI Practice</h2>
+<p>Use AI responsibly:</p>
+<ul>
+<li>Treat AI output as draft analysis, not final truth.</li>
+<li>Validate claims against actual metrics and charts.</li>
+<li>Watch for overconfident statements when data quality is weak.</li>
+<li>Keep focus instructions clear and specific for consistent output style.</li>
+</ul>
+<h2 id="troubleshooting-ai-responses">Troubleshooting AI Responses</h2>
+<h3 id="error-generating-ai-summary">“Error generating AI summary”</h3>
+<p>Check:</p>
+<ul>
+<li>Backend selected correctly.</li>
+<li>Backend is reachable (for example Ollama running).</li>
+<li>Model name matches an installed model.</li>
+<li>API key present if using external providers.</li>
+</ul>
+<h3 id="ai-output-is-too-generic">AI output is too generic</h3>
+<p>Improve by:</p>
+<ul>
+<li>Lowering temperature.</li>
+<li>Adding focus instructions (for example: “prioritize biometric quality drivers and operational actions”).</li>
+<li>Selecting more precise data subsets before asking for summary.</li>
+</ul>
+      </article>
+    </main>
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul>
+        <li><a href="#scenario-examples">Scenario Examples</a></li><li><a href="#what-ai-features-are-for">What AI Features Are For</a></li><li><a href="#ai-settings">AI Settings</a></li><li><a href="#recommended-setup-for-non-experts">Recommended Setup for Non-Experts</a></li><li><a href="#ai-cluster-analysis-cluster-labels">AI Cluster Analysis (Cluster Labels)</a></li><li><a href="#ai-individual-analysis">AI Individual Analysis</a></li><li><a href="#ai-report-summary">AI Report Summary</a></li><li><a href="#good-ai-practice">Good AI Practice</a></li><li><a href="#troubleshooting-ai-responses">Troubleshooting AI Responses</a></li>
+      </ul>
+    </aside>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      window.mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        securityLevel: "loose",
+        flowchart: { useMaxWidth: true }
+      });
+    }
+  </script>
+</body>
+</html>

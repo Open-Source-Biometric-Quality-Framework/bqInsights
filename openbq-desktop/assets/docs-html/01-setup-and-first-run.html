@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Setup and First Run</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --link: #0b63ce;
+      --border: #e5e7eb;
+      --tip: #e8f4ff;
+      --note: #f3f4f6;
+      --warn: #fff4e5;
+      --important: #fdecec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top right, #eef5ff, var(--bg));
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 250px;
+      min-height: 100vh;
+    }
+    .sidebar {
+      border-right: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .sidebar h1 {
+      font-size: 1rem;
+      margin: 0 0 1rem 0;
+      color: #111827;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .brand .label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .brand .sub {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 0.05rem;
+      font-weight: 500;
+    }
+    .sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 0.5rem 0.625rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .sidebar a:hover { background: #f3f4f6; }
+    .sidebar a.active {
+      background: #e8f0ff;
+      color: #0b3d91;
+      font-weight: 600;
+    }
+    .sidebar-support {
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-support a {
+      display: block;
+      text-decoration: none;
+      color: var(--link);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.45rem 0.5rem;
+      border-radius: 0.45rem;
+    }
+    .sidebar-support a:hover {
+      background: #eef4ff;
+    }
+    .content {
+      padding: 2rem 2.5rem;
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .toc {
+      border-left: 1px solid var(--border);
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    .toc h2 {
+      font-size: 0.95rem;
+      margin: 0 0 0.8rem 0;
+      color: #111827;
+    }
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+    }
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.35;
+      padding: 0.3rem 0.35rem;
+      border-radius: 0.4rem;
+    }
+    .toc a:hover {
+      background: #f3f4f6;
+      color: #111827;
+    }
+    article {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 6px 28px rgba(13, 34, 71, 0.06);
+    }
+    .page-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-head img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .page-head .meta {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .page-head .meta strong {
+      font-size: 0.95rem;
+      color: #111827;
+    }
+    .page-head .meta span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .support-link {
+      margin-top: 0.5rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .support-link a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .support-link a:hover {
+      text-decoration: underline;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    p, li { line-height: 1.65; }
+    a { color: var(--link); }
+    code {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 0.1rem 0.3rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      overflow-x: auto;
+    }
+    pre code {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      color: inherit;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .admonition {
+      border: 1px solid var(--border);
+      border-left-width: 6px;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+    }
+    .admonition-title {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .admonition.tip { background: var(--tip); border-left-color: #3b82f6; }
+    .admonition.note { background: var(--note); border-left-color: #6b7280; }
+    .admonition.warning { background: var(--warn); border-left-color: #f59e0b; }
+    .admonition.important { background: var(--important); border-left-color: #ef4444; }
+    .mermaid {
+      background: #fbfcff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .toc {
+        display: none;
+      }
+      .content { padding: 1rem; }
+      article { padding: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+        <div>
+          <div class="label">OpenBQ Desktop</div>
+          <span class="sub">User Documentation</span>
+        </div>
+      </div>
+      <ul>
+        <li><a class="" href="README.html">OpenBQ Desktop User Manual</a></li><li><a class="active" href="01-setup-and-first-run.html">Setup and First Run</a></li><li><a class="" href="02-interface-tour-and-data-loading.html">Interface Tour and Data Loading</a></li><li><a class="" href="03-analysis-workflow.html">Analysis Workflow</a></li><li><a class="" href="04-ai-assistance.html">Using AI Assistance</a></li><li><a class="" href="05-advanced-customization.html">Advanced Customization</a></li>
+      </ul>
+      <div class="sidebar-support">
+        <a href="mailto:support@openbq.io?subject=Tutorial%20Feedback%3A%20OpenBQ%20Desktop%20User%20Tutorial&body=Hi%20OpenBQ%20team%2C%0A%0AI%20am%20sharing%20feedback%20on%20the%20OpenBQ%20Desktop%20User%20Tutorial.%0A%0AWhat%20worked%20well%3A%0A-%20%0A%0AWhat%20was%20unclear%20or%20missing%3A%0A-%20%0A%0ASuggestions%20to%20improve%20the%20tutorial%3A%0A-%20%0A%0AThanks.">OpenBQ Support &lt;support@openbq.io&gt;</a>
+      </div>
+    </aside>
+    <main class="content">
+      <article>
+        <div class="page-head">
+          <img src="assets/logo.png" alt="OpenBQ Desktop logo" />
+          <div class="meta">
+            <strong>OpenBQ Desktop</strong>
+            <span>User Documentation</span>
+            <div class="support-link">
+              <a href="mailto:support@openbq.io">OpenBQ Support &lt;support@openbq.io&gt;</a>
+            </div>
+          </div>
+        </div>
+        <h1 id="setup-and-first-run">Setup and First Run</h1>
+<p>This guide helps you get OpenBQ Desktop running for the first time, including required dependencies and what to expect during startup.</p>
+<p>Even though setup is short, it is important. Most early user issues are not analysis problems, they are environment problems such as Docker not running or AI models not being available yet.</p>
+<p>Taking a few extra minutes to confirm setup health before loading data will save significant time later and make your first analysis run much smoother.</p>
+<aside class="admonition important"><div class="admonition-title">Important</div><p><strong>Things to Think About</strong></p>
+<ul>
+<li>Is this machine suitable for repeated analysis runs (CPU/RAM/disk)?</li>
+<li>Are your dependency versions managed consistently across your team?</li>
+<li>Who is responsible for maintaining Docker/Ollama in your environment?</li>
+</ul></aside>
+
+<p><img src="umap_large.png" width=800>
+Figure: Screenshot of openbq destop with a large dataset.</p>
+<h2 id="scenario-examples">Scenario Examples</h2>
+<h3 id="scenario-a-first-time-installation-on-a-laptop">Scenario A: First-time installation on a laptop</h3>
+<p>You install OpenBQ Desktop on a laptop used for demonstrations.<br />
+Before a live session, you should run one full test analysis so first-run downloads happen ahead of time.</p>
+<h3 id="scenario-b-shared-team-workstation">Scenario B: Shared team workstation</h3>
+<p>Multiple analysts use one workstation for biometric reviews.<br />
+Agree on who maintains Docker and Ollama so analysis does not fail unexpectedly during handovers.</p>
+<div class="mermaid">flowchart TD
+  A["Install Docker"] --> B["Start Docker"]
+  B --> C["Install Ollama"]
+  C --> D["Pull AI Model"]
+  D --> E["Launch OpenBQ Desktop"]
+  E --> F["Run Test Dataset"]
+  F --> G{"All checks pass?"}
+  G -->|Yes| H["Ready for production analysis"]
+  G -->|No| I["Fix dependency issue"]</div>
+<h2 id="before-you-start">Before You Start</h2>
+<p>OpenBQ Desktop depends on two key tools:</p>
+<ul>
+<li><strong>Docker</strong>: runs analysis services used by OpenBQ Desktop.</li>
+<li><strong>Ollama</strong>: provides local AI models for AI-assisted explanations and summaries.</li>
+</ul>
+<p>Without Docker, core analysis will not run.<br />
+Without Ollama (or another AI backend), AI features will be unavailable.</p>
+<h2 id="step-by-step-setup">Step-by-Step Setup</h2>
+<ol>
+<li>Install Docker Desktop for your platform.</li>
+<li>Start Docker Desktop and confirm it is running.</li>
+<li>Install Ollama from <a href="https://ollama.com/download">https://ollama.com/download</a>.</li>
+<li>Start Ollama.</li>
+<li>Pull at least one Ollama model (for example, <code>gpt-oss:20b</code>).</li>
+<li>Launch OpenBQ Desktop.</li>
+</ol>
+<h2 id="first-run-what-is-happening">First Run: What Is Happening</h2>
+<p>The first time you run OpenBQ Desktop analysis, the app may need to:</p>
+<ul>
+<li>Pull or build Docker images used for UMAP/clustering or related processing.</li>
+<li>Download or initialize model files for AI-assisted features.</li>
+<li>Initialize local caches.</li>
+</ul>
+<p>This can take several minutes. Slow startup on first run is expected.</p>
+<p><img src="loading.png" width="300"></p>
+<h2 id="how-to-tell-setup-is-healthy">How to Tell Setup Is Healthy</h2>
+<p>Inside OpenBQ Desktop:</p>
+<ul>
+<li>The footer/status area should indicate Docker is installed and running.</li>
+<li>AI settings should allow you to configure or select a backend.</li>
+<li>Opening a dataset should start processing (instead of immediately failing dependency checks).</li>
+</ul>
+<h2 id="common-first-run-issues">Common First-Run Issues</h2>
+<h3 id="docker-is-installed-but-not-running">Docker is installed but not running</h3>
+<p>Symptoms:</p>
+<ul>
+<li>“Docker is not running” warning.</li>
+<li>Analysis does not start.</li>
+</ul>
+<p>Fix:</p>
+<ul>
+<li>Open Docker Desktop and wait until it shows “running.”</li>
+<li>Restart OpenBQ Desktop if needed.</li>
+</ul>
+<h3 id="ollama-is-installed-but-no-model-is-available">Ollama is installed but no model is available</h3>
+<p>Symptoms:</p>
+<ul>
+<li>AI actions fail or return empty/error responses.</li>
+</ul>
+<p>Fix:</p>
+<ul>
+<li>Pull a model in Ollama first.</li>
+<li>In OpenBQ Desktop Settings, make sure the model name exactly matches the pulled tag.</li>
+</ul>
+<h3 id="first-run-seems-stuck">First run seems stuck</h3>
+<p>Symptoms:</p>
+<ul>
+<li>Very slow initial processing with little visible result.</li>
+</ul>
+<p>Fix:</p>
+<ul>
+<li>Check internet access and Docker/Ollama status.</li>
+<li>Wait longer on first run.</li>
+<li>Review bottom log/status messages for progress hints.</li>
+</ul>
+<p><img src="status_logs.png" width="800"></p>
+      </article>
+    </main>
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul>
+        <li><a href="#scenario-examples">Scenario Examples</a></li><li><a href="#before-you-start">Before You Start</a></li><li><a href="#step-by-step-setup">Step-by-Step Setup</a></li><li><a href="#first-run-what-is-happening">First Run: What Is Happening</a></li><li><a href="#how-to-tell-setup-is-healthy">How to Tell Setup Is Healthy</a></li><li><a href="#common-first-run-issues">Common First-Run Issues</a></li>
+      </ul>
+    </aside>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      window.mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        securityLevel: "loose",
+        flowchart: { useMaxWidth: true }
+      });
+    }
+  </script>
+</body>
+</html>
