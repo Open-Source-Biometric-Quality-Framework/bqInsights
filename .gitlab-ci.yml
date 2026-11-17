@@ -1,6 +1,5 @@
 stages:
   - test
-  - secret-detection
   - build
   - upload
   - release
@@ -14,27 +13,35 @@ include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
 
-cache:
-  key:
-    files:
-      - bun.lock
-  paths:
-    - .bun-cache/
-    - node_modules/
-
 .build_template:
   stage: build
   image: oven/bun:${BUN_VERSION}
   variables:
     BUN_INSTALL_CACHE_DIR: "$CI_PROJECT_DIR/.bun-cache"
+  cache:
+    key:
+      files:
+        - bun.lock
+    paths:
+      - .bun-cache/
+      - node_modules/
   artifacts:
     expire_in: 30d
 
-sast:
-  stage: test
+# ──────────────── Security Scans ────────────────
 
+# Runs on branch commits and on tags
 secret_detection:
-  stage: secret-detection
+  stage: test
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
+    - if: '$CI_COMMIT_TAG'
+
+# Runs when tagged ("everything runs on tag")
+semgrep-sast:
+  stage: test
+  rules:
+    - if: '$CI_COMMIT_TAG'
 
 # ──────────────── Build Jobs ────────────────
 
