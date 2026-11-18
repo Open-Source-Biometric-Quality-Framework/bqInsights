@@ -22,8 +22,9 @@
     "test:cache:watch": "vitest bqat-cache.test.ts"
   },
   "devDependencies": {
-    "@types/node": "^20.19.31",
+    "@types/node": "^24.19.2",
     "typescript": "^5.9.3",
-    "vitest": "^1.6.1"
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
   }
 }

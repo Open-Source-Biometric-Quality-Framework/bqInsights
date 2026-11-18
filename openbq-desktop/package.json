@@ -8,6 +8,7 @@
   "description": "Open Biometric Quality Assessment",
   "author": "Ted Dunstone",
   "company": "Biometix",
+  "homepage": "https://www.biometix.com",
   "main": "electron-dist/main.js",
   "splashfile": "public/splash.html",
   "logofile": "logo.png",
