@@ -179,19 +179,5 @@
         }
       ]
     }
-  },
-  "publish": [
-    {
-      "provider": "github",
-      "owner": "biometix",
-      "repo": "openbq-desktop-releases",
-      "releaseType": "release",
-      "generateReleaseNotes": true,
-      "publishAutoUpdate": true
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/biometix/openbq-desktop-releases.git"
   }
 }
